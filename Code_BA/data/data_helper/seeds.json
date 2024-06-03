@@ -1,0 +1,27 @@
+{
+    "Social Value": {
+        "pos_pole": ["important", "worthy", "benefitial", "value", "valued", "meaning", "meaningful", "principal", "significant", "pertinence", "pertinant", "precedence", "pertinent", "supreme", "supremacy", "centre", "significance", "status", "significant", "main"],
+        "neg_pole": ["unworthy", "failure", "failed", "unsuccessful", "unsuccessful", "disrespected", "disgraced", "disgrace", "shame", "shamed", "shameful", "disgraceful", "devalue", "devalued", "downgrade", "inferior", "inferiority", "insignificance", "insignificant", "meaningless", "below"]
+    },
+
+    "Politeness": {
+        "pos_pole": ["polite", "courteous", "respectful", "respectability", "considerate", "consideration", "kind", "sensitive", "friendly", "friendliness", "helpful", "helpfulness", "generous", "generosity", "gracious", "grace", "manners", "etiquette", "thoughtful", "cordiality"],
+        "neg_pole": ["rude", "rudeness", "disrespectful", "disrespect", "inconsiderate", "inconsideration", "unkind", "unkindness", "unfriendly", "unfriendliness", "unhelpful", "unhelpfulness", "selfish", "selfishness", "mean", "graceless", "thoughtless", "harsh", "discourtesy", "insensitive"]
+    },
+
+    "Impact": {
+        "pos_pole": ["impactful", "influential", "influence", "powerful", "power", "effective", "effectiveness", "consequential", "significant", "authority", "reach", "persuasive", "resonance", "resonant", "impactfulness", "forceful", "momentous", "meaningful", "imprint", "mark"],
+        "neg_pole": ["insignificant", "insignificance", "ineffective", "ineffectiveness", "powerless", "weak", "uninfluential", "insignificant", "insignificance", "unimportant", "unimpactful", "unpersuasive","unconvincing", "unforceful", "unimpressive", "unremarkable", "unmemorable", "meaningless", "inconsequential", "unremarkable"]
+    }, 
+
+    "Factuality": {
+        "pos_pole": ["factual", "tangible", "substantial", "real", "verifiable", "concrete", "physical", "material", "solid", "observable", "evident", "realness", "physicality", "substantiality", "tangibility", "verifiability", "evidence", "evidential", "material", "materiality"],
+        "neg_pole": ["unfactual", "unverifiable", "unobservable", "unsubstantial", "immaterial", "unmaterial", "unreal", "abstract", "unsubstantiality", "unverifiability", "unobservable", "unsubstantial", "unmaterial", "hypothetical", "intangible", "theoretical", "imaginary"]
+
+    },
+
+    "Sentiment":{
+        "pos_pole": ["positive", "optimistic", "hopeful", "hope", "joyful", "joy", "happy", "happiness", "excited", "excitement", "enthusiastic", "enthusiasm", "love", "loving", "compassionate", "compassion", "kind", "kindness", "grateful", "gratitude"],
+        "neg_pole": ["negative", "pessimistic", "hopeless", "hopelessness", "sad", "sadness", "unhappy", "unhappiness", "disappointed", "disappointment", "discouraged", "discouragement", "angry", "anger", "hateful", "hate", "cruel", "cruelty", "resentful", "resentment"]
+    }
+}
