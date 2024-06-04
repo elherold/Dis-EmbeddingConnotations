@@ -6,6 +6,7 @@ from sklearn.svm import SVC
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.covariance import EllipticEnvelope
 import json
+import seaborn as sns
 
 def load_embeddings(filepath):
     """
@@ -137,12 +138,15 @@ def select_seed_words(word2vec_model, seeds, num_words=10):
     distances = envelope.mahalanobis(seed_vectors) # Compute the Mahalanobis distances of the seed vectors
     selected_indices = np.argsort(distances)[:num_words] # Select the num_words indices with the smallest distances
     coherent_subset = [seed_vectors[i] for i in selected_indices] # return the subset of vectors that form the most coherent cluster
-    nl_subset = [seeds[i] for i in selected_indices] # return the subset of words that form the most coherent cluster
+    nl_subset = [seeds[i] for i in selected_indices if seeds[i] in word2vec_model.wv.key_to_index] # return the subset of words that form the most coherent cluster
     
     print(f"Selected words: {nl_subset}")	
     print(f"words that did not make the cut: {list(set(seeds) - set(nl_subset))}")
 
     return coherent_subset
+
+def connotation_heatmap(data, row_labels, col_labels, ax=None, cbar_kw={}, cbarlabel="", **kwargs):
+    pass
 
 def main():
     # Load the trained embeddings

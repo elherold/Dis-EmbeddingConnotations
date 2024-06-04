@@ -5,23 +5,23 @@
     },
 
     "Politeness": {
-        "pos_pole": ["polite", "courteous", "respectful", "respectability", "considerate", "consideration", "kind", "sensitive", "friendly", "friendliness", "helpful", "helpfulness", "generous", "generosity", "gracious", "grace", "manners", "etiquette", "thoughtful", "cordiality"],
-        "neg_pole": ["rude", "rudeness", "disrespectful", "disrespect", "inconsiderate", "inconsideration", "unkind", "unkindness", "unfriendly", "unfriendliness", "unhelpful", "unhelpfulness", "selfish", "selfishness", "mean", "graceless", "thoughtless", "harsh", "discourtesy", "insensitive"]
+        "pos_pole": ["polite", "chivalrous", "respectful", "mannered", "tactful", "chivalric", "graceful", "courteous", "civilly", "civilized", "gallantry", "sugarcoat", "urbane", "deferentially", "coated", "comity", "cordial", "sensitive", "considerate", "thoughtful"],
+        "neg_pole": ["rude", "disrespectful", "impolite", "cheeky", "impertinent", "impudent", "insolent", "abrasive", "vulgar", "inconsiderate", "thoughtless", "disrespectful", "inconsiderate", "insensitive", "blunt", "unfriendly", "harsh", "discourteous", "unmannerly", "improper"]
     },
 
     "Impact": {
-        "pos_pole": ["impactful", "influential", "influence", "powerful", "power", "effective", "effectiveness", "consequential", "significant", "authority", "reach", "persuasive", "resonance", "resonant", "impactfulness", "forceful", "momentous", "meaningful", "imprint", "mark"],
-        "neg_pole": ["insignificant", "insignificance", "ineffective", "ineffectiveness", "powerless", "weak", "uninfluential", "insignificant", "insignificance", "unimportant", "unimpactful", "unpersuasive","unconvincing", "unforceful", "unimpressive", "unremarkable", "unmemorable", "meaningless", "inconsequential", "unremarkable"]
+        "pos_pole": ["impactful", "influential", "effective", "important", "consequential", "significant", "powerful", "authoritative", "forceful", "masterful", "effective", "meaningful", "effectful", "marking", "guiding", "striking", "resonant", "reaching", "serious"], 
+        "neg_pole": ["weak", "helplessness", "impotent", "powerless", "insignificant", "inconsequential", "unimportant", "ineffective", "insignificant", "unpersuasive", "unforceful", "incapable", "unable", "unconvincing", "minor", "inessential", "peripheral", "secondary", "trivial", "unserious"]
     }, 
 
     "Factuality": {
-        "pos_pole": ["factual", "tangible", "substantial", "real", "verifiable", "concrete", "physical", "material", "solid", "observable", "evident", "realness", "physicality", "substantiality", "tangibility", "verifiability", "evidence", "evidential", "material", "materiality"],
-        "neg_pole": ["unfactual", "unverifiable", "unobservable", "unsubstantial", "immaterial", "unmaterial", "unreal", "abstract", "unsubstantiality", "unverifiability", "unobservable", "unsubstantial", "unmaterial", "hypothetical", "intangible", "theoretical", "imaginary"]
+        "pos_pole": ["factual", "substantial", "real", "verifiable", "empirical", "visible", "concrete", "observable", "embodied", "actual", "existent", "detectable", "material", "physical", "identifiable", "undeniable", "objective", "unquestionable","palpable", "established"],
+        "neg_pole": ["hypothetical", "theoretical", "nonexistent", "fictional", "fake", "inexistent", "illusiory", "virtual", "alleged", "absent", "lacking", "missing", "unverifiable", "unobservable", "unsubstantial", "immaterial", "unmaterial", "unreal", "abstract", "imaginary"]
 
     },
 
     "Sentiment":{
-        "pos_pole": ["positive", "optimistic", "hopeful", "hope", "joyful", "joy", "happy", "happiness", "excited", "excitement", "enthusiastic", "enthusiasm", "love", "loving", "compassionate", "compassion", "kind", "kindness", "grateful", "gratitude"],
-        "neg_pole": ["negative", "pessimistic", "hopeless", "hopelessness", "sad", "sadness", "unhappy", "unhappiness", "disappointed", "disappointment", "discouraged", "discouragement", "angry", "anger", "hateful", "hate", "cruel", "cruelty", "resentful", "resentment"]
+        "pos_pole": ["positive", "positively", "good", "well", "favorable", "approving", "approvable", "great", "nice", "right", "pleasing", "pleasant", "supporting", "appreciative", "admiring", "enjoyable", "delightful", "nice", "agreeable", "proper", "welcome"],
+        "neg_pole": ["negative", "bad", "wrong", "evil", "improper", "unsatisfactory", "unpleasant", "disagreeable", "unwelcome", "ghastly", "unfavorable", "disapproving", "unacceptable", "lousy", "invalid", "unreasonable", "stupid", "awful", "horrible", "terrible" ]
     }
 }
