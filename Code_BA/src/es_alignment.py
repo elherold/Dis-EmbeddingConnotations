@@ -3,7 +3,7 @@ import numpy as np
 from scipy.linalg import orthogonal_procrustes
 from gensim.models import Word2Vec
 
-def load_models(set_name, spellchecker, folder_path="models/new/"):
+def load_models(set_name, spellchecker, folder_path="models/new/individual_models"):
     """
     Loads the trained Word2Vec models saved in the specified folder. 
     Differentiates between spellchecker and non-spellchecker models and loads according to set name.
@@ -17,12 +17,16 @@ def load_models(set_name, spellchecker, folder_path="models/new/"):
     list: A list  containing the loaded Word2Vec model.
     """
     models = []
+    print(f"Loading models for {set_name} with spellchecker: {spellchecker}")
     # loading the correct model files depending on the set and whether we want a spellchecker model
     if spellchecker: 
-        model_files = [f for f in os.listdir(folder_path) if f.endswith(f"{set_name}.model") and "spellchecker" in f]
+        print("spellchecker detected, Loading spellchecker models")
+        model_files = [f for f in os.listdir(folder_path) if f.endswith(f"{set_name}.model") and "spellchecker" in f.lower()]
     else:
-        model_files = [f for f in os.listdir(folder_path) if f.endswith(f"{set_name}.model") and "spellchecker" not in f]
+        print(f"Loading non-spellchecker models for {set_name}")
+        model_files = [f for f in os.listdir(folder_path) if f.endswith(f"{set_name}.model") and "spellchecker" not in f.lower()]
 
+    print(f"Found {len(model_files)} models for {set_name} with spellchecker: {spellchecker}")
     # load the models
     for model_file in model_files:
         model_path = os.path.join(folder_path, model_file)
@@ -82,7 +86,7 @@ def mean_embedding_model(vocab, mean_embeddings):
     Returns:
     gensim.models.Word2Vec: The Word2Vec model with the mean embeddings.
     """
-    mean_model = Word2Vec(size=mean_embeddings.shape[1]) # create a new Word2Vec model with the same dimensionality as the mean embeddings
+    mean_model = Word2Vec(vector_size=mean_embeddings.shape[1]) # create a new Word2Vec model with the same dimensionality as the mean embeddings
     mean_model.build_vocab_from_freq(vocab) # build the vocabulary of the model
     mean_model.wv.vectors = mean_embeddings # set the mean embeddings as the vectors of the model
 
@@ -101,27 +105,35 @@ def main():
     """
     
     # Differentiate between sets and spellchecker usage
-    for set_name in ["Set_A", "Set_B"]:
+    for set_name in ["set_A", "set_B"]:
         for spellchecker in [True, False]:
             models = load_models(set_name, spellchecker)
             if not models:
                 print(f"No eligible models found for {set_name} with spellchecker: {spellchecker}")
                 continue
 
-            reference_model = models[0][1] # Use the first model as the reference model
+            reference_model = models[0] # Use the first model as the reference model
             aligned_models = align_embeddings(reference_model, models)
             mean_embeddings, variance_embeddings = compute_average_and_variance(aligned_models)
 
-            vocab = list(reference_model.wv.key_to_index.keys())
+            vocab = {word: reference_model.wv.get_vecattr(word, "count") for word in reference_model.wv.index_to_key}
             mean_model = mean_embedding_model(vocab, mean_embeddings)
 
             # save the mean model
-            os.makedirs("models/new/mean", exist_ok=True)
-            mean_model.save(os.path.join("models/new/mean", f"mean_{set_name}_{'spellchecker' if spellchecker else 'no_spellchecker'}.model"))
-            print(f"Mean model has been saved for {set_name} with spellchecker: {spellchecker}")
-            # save the variance embeddings
-            np.save(os.path.join("models/new/mean", f"variance_{set_name}_{'spellchecker' if spellchecker else 'no_spellchecker'}.npy"), variance_embeddings)
-            print(f"Variance embeddings have been saved for {set_name} with spellchecker: {spellchecker}")
+            os.makedirs("models/new/summarized", exist_ok=True)
+            # only save the model if the exact same name doesnt exist already
+            if not os.path.exists(os.path.join("models/new/summarized", f"mean_{set_name}_{'spellchecker' if spellchecker else 'no_spellchecker'}.model")):
+                mean_model.save(os.path.join("models/new/summarized", f"mean_{set_name}_{'spellchecker' if spellchecker else 'no_spellchecker'}.model"))
+                print(f"Mean model has been saved for {set_name} with spellchecker: {spellchecker}")
+            else:
+                print(f"Model already exists for {set_name} with spellchecker: {spellchecker}")
+            # save the variance embeddings only if they dont exist already
+            if not os.path.exists(os.path.join("models/new/summarized", f"variance_{set_name}_{'spellchecker' if spellchecker else 'no_spellchecker'}.npy")):
+                np.save(os.path.join("models/new/summarized", f"variance_{set_name}_{'spellchecker' if spellchecker else 'no_spellchecker'}.npy"), variance_embeddings)
+                print(f"Variance embeddings have been saved for {set_name} with spellchecker: {spellchecker}")
+            else:
+                print(f"Variance embeddings already exist for {set_name} with spellchecker: {spellchecker}")
 
 if __name__ == "__main__":
     main()
+
