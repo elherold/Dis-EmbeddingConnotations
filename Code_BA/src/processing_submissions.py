@@ -46,11 +46,19 @@ def initialize_symspell():
     logging.info("SymSpell initialized successfully.")
     return sym_spell
 
+
 def correct_spelling(text, sym_spell, cache, batch_size=100):
     """
-    Corrects misspelled words in the text leveraging SymSpell.
+    Corrects spelling in the text using SymSpell.
+    
+    Parameters:
+    text (str): The text to correct spelling.
+    sym_spell (SymSpell): The SymSpell object for spell correction.
+    cache (dict): A cache for previously corrected words.
+    
+    Returns:
+    str: The text with corrected spelling.
     """
-def correct_spelling(text, sym_spell, cache, batch_size=100):
     corrected_text = []
     words = re.findall(r'\w+|[^\w\s]', text)
     for i in range(0, len(words), batch_size):
@@ -77,9 +85,12 @@ def preprocessing(text, use_spellchecker, sym_spell, cache):
     
     Parameters:
     text (str): The text data to preprocess.
+    use_spellchecker (bool): Whether to use the spell checker.
+    sym_spell (SymSpell): The SymSpell object for spell correction.
+    cache (dict): A cache for previously corrected words.
     
     Returns:
-    str: The preprocessed text data.
+    list of list of str: The preprocessed text data as a list of sentences, where each sentence is a list of words.
     """
     text = text.lower()  # Convert text to lowercase
     text = re.sub(r'\s+', ' ', text)  # Replace multiple whitespaces with a single whitespace
@@ -103,13 +114,36 @@ def preprocessing(text, use_spellchecker, sym_spell, cache):
     return sentences
 
 def process_batch(batch, use_spellchecker, sym_spell, cache):
-
+    """
+    Helper function for batch-wise processing of text data
+    
+    Parameters:
+    text (str): The text data to preprocess.
+    use_spellchecker (bool): Whether to use the spell checker.
+    sym_spell (SymSpell): The SymSpell object for spell correction.
+    cache (dict): A cache for previously corrected words.
+    
+    Returns:
+    list of list of str: The preprocessed text data as a list of sentences, where each sentence is a list of words.
+    """
     processed_sentences = []
     for comment in batch:
         processed_sentences.extend(preprocessing(comment, use_spellchecker, sym_spell, cache))
     return processed_sentences
 
 def process_large_dataset(df, use_spellchecker, batch_size=1000, num_workers=None):
+    """
+    Helper function for more efficient processing of large text datasets using multiple workers.
+    
+    Parameters:
+    text (str): The text data to preprocess.
+    use_spellchecker (bool): Whether to use the spell checker.
+    sym_spell (SymSpell): The SymSpell object for spell correction.
+    cache (dict): A cache for previously corrected words.
+    
+    Returns:
+    list of list of str: The preprocessed text data as a list of sentences, where each sentence is a list of words.
+    """
     comments = df['body'].tolist()
     processed_comments = []
     sym_spell = initialize_symspell()
@@ -135,49 +169,52 @@ def process_large_dataset(df, use_spellchecker, batch_size=1000, num_workers=Non
     return processed_comments
 
 def main():
-    source_folder = "data/data_raw"
-    target_folder = "data/data_processed"
-    os.makedirs(target_folder, exist_ok=True) # Create the target folder if it doesn't exist
+
+    categories = ["anti", ""]
     
-    for dataset in os.listdir(source_folder):
-        try:
-            file_path = os.path.join(source_folder, dataset)
-            if os.path.isfile(file_path):
-                # Create DataFrame for the second file
-                logging.info(f"Reading dataset from {file_path}...")
-                df2 = rd.create_dataframe(file_path)
-                if df2 is not None:  # Check if the DataFrame was created successfully ("not None" to avoid ambiguous truth value error of dataframe)
-                    # Process the dataset
-                    logging.info("Starting preprocessing of comments with spell checker...")
-                    # check if the dataset was already processed with a spellchecker (if the file exists)
-                    if os.path.exists(f'spellchecker_processed_{dataset}.pkl'):
-                        logging.info(f"File 'spellchecker_processed_{dataset}.pkl' already exists. Skipping processing...")
-                        continue
-                    processed_comments_spellchecker = process_large_dataset(df2, batch_size=1000, use_spellchecker=True)
-                    if processed_comments_spellchecker:
-                        # check if the dataset was already processed without a spellchecker (if the file exists)
-                        if os.path.exists(f'processed_{dataset}.pkl'):
-                            logging.info(f"File 'processed_{dataset}.pkl' already exists. Skipping processing...")
+    for category in categories:
+        source_folder = f"data/data_raw/{category}feminism"
+        target_folder = f"data/data_processed/{category}feminism"
+        os.makedirs(target_folder, exist_ok=True)  # Create the target folder if it doesn't exist
+        for dataset in os.listdir(source_folder):
+            try:
+                file_path = os.path.join(source_folder, dataset)
+                if os.path.isfile(file_path):
+                    # Create DataFrame for the second file
+                    logging.info(f"Reading dataset from {file_path}...")
+                    df2 = rd.create_dataframe(file_path)
+                    if df2 is not None:  # Check if the DataFrame was created successfully ("not None" to avoid ambiguous truth value error of dataframe object)
+                        # Process the dataset
+                        logging.info("Starting preprocessing of comments with spell checker...")
+                        # check if the dataset was already processed with a spellchecker (if the file exists)
+                        if os.path.exists(f'spellchecker_processed_{dataset}.pkl'):
+                            logging.info(f"File 'spellchecker_processed_{dataset}.pkl' already exists. Skipping processing...")
                             continue
-                        processed_comments = process_large_dataset(df2, batch_size=1000, use_spellchecker=False)
-                        if processed_comments:
-                            print(f"Shape of processed_comments with spellchecker: {len(processed_comments_spellchecker)} rows and {len(processed_comments_spellchecker[0])} columns")
-                            print(f"Shape of processed_comments without spellchecker: {len(processed_comments)} rows and {len(processed_comments[0])} columns")
-                            print(f"First processed comments with spellchecker: {processed_comments_spellchecker[:5]}")
-                            print(f"First processed comments without spellchecker: {processed_comments[:5]}")
+                        processed_comments_spellchecker = process_large_dataset(df2, batch_size=1000, use_spellchecker=True)
+                        if processed_comments_spellchecker:
+                            # check if the dataset was already processed without a spellchecker (if the file exists)
+                            if os.path.exists(f'processed_{dataset}.pkl'):
+                                logging.info(f"File 'processed_{dataset}.pkl' already exists. Skipping processing...")
+                                continue
+                            processed_comments = process_large_dataset(df2, batch_size=1000, use_spellchecker=False)
+                            if processed_comments:
+                                print(f"Shape of processed_comments with spellchecker: {len(processed_comments_spellchecker)} rows and {len(processed_comments_spellchecker[0])} columns")
+                                print(f"Shape of processed_comments without spellchecker: {len(processed_comments)} rows and {len(processed_comments[0])} columns")
+                                print(f"First processed comments with spellchecker: {processed_comments_spellchecker[:5]}")
+                                print(f"First processed comments without spellchecker: {processed_comments[:5]}")
 
-                            # Save the list of lists to a pickle file
-                            with open(f'spellchecker_processed_{dataset}.pkl', 'wb') as file: # writing mode + handling binary data
-                                pickle.dump(processed_comments_spellchecker, file) # version with spellchecker
+                                # Save the list of lists to a pickle file
+                                with open(os.path.join(target_folder, f'spellchecker_processed_{dataset}.pkl'), 'wb') as file:  # Writing mode + handling binary data
+                                    pickle.dump(processed_comments_spellchecker, file)  # Version with spell checker
 
-                            with open(f'processed_{dataset}.pkl', 'wb') as file: # versoion without spellchecker
-                                pickle.dump(processed_comments, file)
+                                with open(os.path.join(target_folder, f'processed_{dataset}.pkl'), 'wb') as file:  # Version without spell checker
+                                    pickle.dump(processed_comments, file)
 
-                            logging.info("Preprocessing complete. Processed comments saved to 'processed_comments.csv'.")
+                                logging.info("Preprocessing complete. Processed comments saved to 'processed_comments.csv'.")
 
-        except Exception as e:
-            print(f"Error processing the dataset {dataset}: {e}")
-            continue
+            except Exception as e:
+                print(f"Error processing the dataset {dataset}: {e}")
+                continue
 
 if __name__ == "__main__":
     main()

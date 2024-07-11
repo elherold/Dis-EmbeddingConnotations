@@ -33,8 +33,7 @@
             "considerate",
             "respectful",
             "civilized",
-            "sensitive",
-            "courteous"
+            "sensitive"
         ],
         "neg_pole": [
             "disrespectful",
@@ -83,7 +82,6 @@
             "objective"
         ],
         "neg_pole": [
-            "lacking",
             "nonexistent",
             "unreal",
             "fictional",

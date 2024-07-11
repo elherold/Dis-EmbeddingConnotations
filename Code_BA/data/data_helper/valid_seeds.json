@@ -1,0 +1,135 @@
+{
+    "Social Value": {
+        "pos_pole": [
+            "principal",
+            "centre",
+            "supreme",
+            "meaningful",
+            "worthy",
+            "supremacy",
+            "significant",
+            "meaning",
+            "status",
+            "main",
+            "important",
+            "value"
+        ],
+        "neg_pole": [
+            "disgraceful",
+            "disgrace",
+            "unworthy",
+            "insignificant",
+            "inferiority",
+            "shameful",
+            "devalue",
+            "meaningless",
+            "inferior",
+            "failure",
+            "below",
+            "shame"
+        ]
+    },
+    "Politeness": {
+        "pos_pole": [
+            "chivalrous",
+            "civilized",
+            "considerate",
+            "thoughtful",
+            "polite",
+            "sensitive",
+            "respectful"
+        ],
+        "neg_pole": [
+            "vulgar",
+            "blunt",
+            "insensitive",
+            "disrespectful",
+            "harsh",
+            "rude"
+        ]
+    },
+    "Impact": {
+        "pos_pole": [
+            "influential",
+            "meaningful",
+            "effective",
+            "significant",
+            "powerful",
+            "serious",
+            "important"
+        ],
+        "neg_pole": [
+            "insignificant",
+            "powerless",
+            "trivial",
+            "secondary",
+            "incapable",
+            "unable",
+            "minor",
+            "weak"
+        ]
+    },
+    "Factuality": {
+        "pos_pole": [
+            "palpable",
+            "observable",
+            "existent",
+            "undeniable",
+            "empirical",
+            "substantial",
+            "factual",
+            "concrete",
+            "visible",
+            "objective",
+            "material",
+            "physical",
+            "actual",
+            "real"
+        ],
+        "neg_pole": [
+            "unreal",
+            "virtual",
+            "absent",
+            "theoretical",
+            "abstract",
+            "nonexistent",
+            "imaginary",
+            "fictional",
+            "hypothetical",
+            "fake"
+        ]
+    },
+    "Sentiment": {
+        "pos_pole": [
+            "pleasing",
+            "favorable",
+            "agreeable",
+            "enjoyable",
+            "positively",
+            "pleasant",
+            "proper",
+            "welcome",
+            "positive",
+            "nice",
+            "great",
+            "good",
+            "right",
+            "well"
+        ],
+        "neg_pole": [
+            "lousy",
+            "invalid",
+            "unpleasant",
+            "unacceptable",
+            "unreasonable",
+            "awful",
+            "terrible",
+            "horrible",
+            "evil",
+            "negative",
+            "stupid",
+            "wrong",
+            "bad"
+        ]
+    }
+}

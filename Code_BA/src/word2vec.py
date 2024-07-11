@@ -1,5 +1,4 @@
 from gensim.models import Word2Vec
-import ast
 import os
 import logging
 import pickle
@@ -112,7 +111,7 @@ def main():
     """
 
     # Define the data and model folders
-    data_folder_1 = "data/data_processed/set_A"
+    data_folder_1 = "data/data_processed/antifeminism"
     data_folder_2 = "data/data_processed/set_B"
     model_folder = "models/new/"
     os.makedirs(model_folder, exist_ok=True)
@@ -156,7 +155,7 @@ def main():
                 model = word2vec_model(sentences_spellchecker) # train model with spellchecker
                 print(f"Training model {i+1}/{num_trainings} with spellchecker")
                 if model:
-                    model.save(os.path.join(model_folder, f"word2vec_spellchecker_{i+1}_{data_folder[-5:]}.model"))
+                    #model.save(os.path.join(model_folder, f"word2vec_spellchecker_{i+1}_{data_folder[-5:]}.model"))
                     print(f"Model saved as word2vec_spellchecker_{i+1}_{data_folder[-5:]}.model")
         else:
             print(f"No data found in {data_folder} with spellchecker")

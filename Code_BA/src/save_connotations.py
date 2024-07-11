@@ -1,6 +1,6 @@
 import json
 import pandas as pd
-from connotative_heatmap import load_embeddings
+from old_heatmap_methods.connotative_heatmap import load_embeddings
 from svm_ensemble_functions import train_svms_on_centroids, distance_from_svms
 import os
 
