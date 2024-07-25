@@ -1,0 +1,132 @@
+{
+    "Social Value": {
+        "pos_pole": [
+            "precedence",
+            "pertinent",
+            "significance",
+            "principal",
+            "centre",
+            "supreme",
+            "meaningful",
+            "supremacy",
+            "worthy",
+            "meaning"
+        ],
+        "neg_pole": [
+            "downgrade",
+            "shamed",
+            "disgraceful",
+            "unsuccessful",
+            "unworthy",
+            "disgrace",
+            "inferiority",
+            "insignificant",
+            "shameful",
+            "devalue"
+        ]
+    },
+    "Politeness": {
+        "pos_pole": [
+            "mannered",
+            "chivalric",
+            "cordial",
+            "sugarcoat",
+            "civilly",
+            "graceful",
+            "tactful",
+            "courteous",
+            "considerate",
+            "chivalrous"
+        ],
+        "neg_pole": [
+            "unfriendly",
+            "impolite",
+            "cheeky",
+            "thoughtless",
+            "abrasive",
+            "improper",
+            "inconsiderate",
+            "vulgar",
+            "blunt",
+            "insensitive"
+        ]
+    },
+    "Impact": {
+        "pos_pole": [
+            "consequential",
+            "striking",
+            "impactful",
+            "authoritative",
+            "forceful",
+            "influential",
+            "meaningful",
+            "effective",
+            "significant",
+            "powerful"
+        ],
+        "neg_pole": [
+            "unconvincing",
+            "peripheral",
+            "impotent",
+            "inconsequential",
+            "helplessness",
+            "unimportant",
+            "ineffective",
+            "insignificant",
+            "powerless",
+            "trivial"
+        ]
+    },
+    "Factuality": {
+        "pos_pole": [
+            "detectable",
+            "unquestionable",
+            "established",
+            "palpable",
+            "identifiable",
+            "observable",
+            "existent",
+            "verifiable",
+            "undeniable",
+            "empirical"
+        ],
+        "neg_pole": [
+            "immaterial",
+            "missing",
+            "unreal",
+            "lacking",
+            "alleged",
+            "virtual",
+            "imaginary",
+            "nonexistent",
+            "absent",
+            "theoretical"
+        ]
+    },
+    "Sentiment": {
+        "pos_pole": [
+            "delightful",
+            "appreciative",
+            "pleasing",
+            "agreeable",
+            "favorable",
+            "enjoyable",
+            "pleasant",
+            "positively",
+            "proper",
+            "welcome"
+        ],
+        "neg_pole": [
+            "ghastly",
+            "unsatisfactory",
+            "unfavorable",
+            "disagreeable",
+            "improper",
+            "lousy",
+            "unwelcome",
+            "invalid",
+            "unpleasant",
+            "unreasonable"
+        ]
+    }
+}

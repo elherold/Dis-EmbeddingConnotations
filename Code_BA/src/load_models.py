@@ -1,7 +1,7 @@
 from gensim.models import Word2Vec
 import os
 
-def load_models(set_A, set_B, folder_path="models/new/individual_models", spellchecker=False):
+def load_models(set_A, set_B, folder_path="models/test", spellchecker=False):
     """
     Loads the trained Word2Vec models saved in the specified folder.
     Differentiates into two sets based on the provided substrings for Set A and Set B
@@ -28,12 +28,15 @@ def load_models(set_A, set_B, folder_path="models/new/individual_models", spellc
 
     # Load the models into respective lists based on set_A and set_B
     for model_file in model_files:
+        #print(f"Loading model {model_file}")
         model_path = os.path.join(folder_path, model_file)
         model = Word2Vec.load(model_path)
-        if set_A in model_file:
-            models_A.append(model)
-        elif set_B in model_file:
+        if set_B in model_file:
             models_B.append(model)
+            #print(f"Model {model_file} added to Set B")
+        elif set_A in model_file:
+            models_A.append(model)
+            #print(f"Model {model_file} added to Set A")
 
     print(f"Loaded {len(models_A)} models for Set A and {len(models_B)} models for Set B")
 

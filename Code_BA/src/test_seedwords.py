@@ -63,12 +63,12 @@ def validate_and_filter_seeds(models, dic_seeds):
         common_valid_pos = valid_seeds[dimension]['set_A']['pos_pole'].keys() & valid_seeds[dimension]['set_B']['pos_pole'].keys()
         common_valid_neg = valid_seeds[dimension]['set_A']['neg_pole'].keys() & valid_seeds[dimension]['set_B']['neg_pole'].keys()
 
-        # Order the seeds by their frequency
+        # Order the seeds by their frequency in descending order
         ordered_pos = sorted(common_valid_pos, key=lambda x: (valid_seeds[dimension]['set_A']['pos_pole'][x] + valid_seeds[dimension]['set_B']['pos_pole'][x]) / 2, reverse=True)
         ordered_neg = sorted(common_valid_neg, key=lambda x: (valid_seeds[dimension]['set_A']['neg_pole'][x] + valid_seeds[dimension]['set_B']['neg_pole'][x]) / 2, reverse=True)
 
-        final_valid_seeds[dimension]['pos_pole'] = ordered_pos
-        final_valid_seeds[dimension]['neg_pole'] = ordered_neg
+        final_valid_seeds[dimension]['pos_pole'] = ordered_pos[:10] # Select the top 10-frequency seeds
+        final_valid_seeds[dimension]['neg_pole'] = ordered_neg[:10] # Select the top 10-frequency seeds
 
     return final_valid_seeds
 
@@ -79,7 +79,7 @@ def main():
     """
     models = load_models('set_A', 'set_B', spellchecker=False)
     seed_file_path = 'data/data_helper/seeds.json'
-    output_path = 'data/data_helper/valid_seeds.json'
+    output_path = 'data/data_helper/valid_seeds_new.json'
 
     # check if the json file already exists under output_path
     if os.path.exists(output_path):

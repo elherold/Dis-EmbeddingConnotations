@@ -7,9 +7,12 @@ import matplotlib.pyplot as plt
 import json
 import seaborn as sns
 import pandas as pd
-from svm_ensemble_functions import train_svms_on_centroids, distance_from_svms
+from new_ensemble_functions_svm import train_svms_on_different_subsets, distance_from_svms
+#from new2_ensemble_functions_svm import train_svms_on_different_subsets, distance_from_svms
+from svm_functions import connotative_hyperplane, distance_svm
 from collections import defaultdict
 from load_models import load_models
+import sys
 
 def connotation_heatmap(distances, target_word, cbar=True):
     """
@@ -27,6 +30,18 @@ def connotation_heatmap(distances, target_word, cbar=True):
     """
     # Convert the distances dictionary to a DataFrame
     df = pd.DataFrame(distances)
+
+    # Debug: Print the DataFrame to check its content for debugging
+    print("DataFrame to be plotted:")
+    print(df)
+
+    # Check if the DataFrame is empty for debugging
+    if df.empty:
+        print("The DataFrame is empty. No heatmap will be generated.")
+        return
+    
+    if df.shape[0] == 1 or df.shape[1] == 1:
+        print("The DataFrame has only one row or one column. This might cause the warning.")
     
     # Set up the matplotlib figure
     plt.figure(figsize=(10, 8))
@@ -43,17 +58,22 @@ def connotation_heatmap(distances, target_word, cbar=True):
     output_dir = 'data/figures/heatmaps'
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-    output_path = os.path.join(output_dir, f'heatmap_{target_word[0].split("_")[0]}_centroid.png')
-    #plt.savefig(output_path)
+    output_path = os.path.join(output_dir, f'heatmap_weights_{target_word[0].split("_")[0]}_centroid.png')
+    plt.savefig(output_path)
     
     # Show the heatmap
     plt.show()
 
 def main():
+    target_word = input("Please enter the target word (only single words): ").lower()
     models = load_models('set_A', 'set_B', spellchecker=False)
-    target_word = "snowflake"
+    print(f"Models loaded: {models.keys()}")
+    # print the length of the models to check if they are loaded correctly
+    print(f"Length of models in set A: {len(models['set_A'])}")
+    print(f"Length of models in set B: {len(models['set_B'])}")
     distances = defaultdict(lambda: defaultdict(list))
     average_distances = defaultdict(dict)
+    
 
     # Before going into any calculations, check if all models are loaded correctly 
     # and if the target word is in the vocabulary of all models
@@ -63,15 +83,15 @@ def main():
                 print(f"No models loaded. Please check {set_name} and ensure model is correctly loaded.")
                 return None
 
-            if target_word in model.wv.key_to_index:
-                print(f"Word '{target_word}' found in the embedding space of {set_name}.")
-            else:
-                print(f"Word '{target_word}' not found in the embedding space of {set_name}. Please try another one. The target word needs to be included in all embedding spaces.")
-                return None
+        if target_word in model_list[0].wv.key_to_index: # target word check is in outer loop to avoid redundancy, as all models of a set are trained on the exact same vocabulary
+            print(f"Word '{target_word}' found in the embedding space of {set_name}.")
+        else:
+            print(f"Word '{target_word}' not found in the embedding space of {set_name}. Please try another one. The target word needs to be included in all embedding spaces.")
+            return None
     
     # Load seeds from file
     try:
-        with open('data/data_helper/seeds.json', 'r') as f:
+        with open('data/data_helper/valid_seeds_old.json', 'r') as f:
                 dic_seeds = json.load(f) # store list of seeds in a dictionary
     except FileNotFoundError:
         print("couldn't find seeds at specified path.")
@@ -82,37 +102,47 @@ def main():
         print(f"Seed set: {dimension}") # current connotative dimension
         pos_seeds = dic_seeds[dimension]['pos_pole'] # assign seeds to negative and positive poles as specified in file
         neg_seeds = dic_seeds[dimension]['neg_pole']
+        #print(f"seed sets assigned to pos and negative poles as specified in loaded json file")
 
         for set_name, model_list in models.items(): # Iterate through the model sets
+            #print(f"Model set: {set_name}") # current model set
             set_distances = []
 
-            for model in model_list: # Iterate through the list of models in each set
-                try:
-                    # Ensure seed_vectors_1 and seed_vectors_2 are converted to vectors for training
-                    seed_vectors_1 = [model.wv[word] for word in pos_seeds] # this needs to be inside the model-loop due to vocabulary variations stemming from the spellchecker
-                    seed_vectors_2 = [model.wv[word] for word in neg_seeds]
-                except KeyError:
-                    print(f"One or more seed words not found in the embedding space of {dimension}. Please check the seeds file.")
-                    return None
+            try:
+                # Ensure seed_vectors_1 and seed_vectors_2 are converted to vectors for training
+                seed_vectors_pos = [model_list[0].wv[word] for word in pos_seeds] # all models in a set are trained on the same vocabulary
+                seed_vectors_neg = [model_list[0].wv[word] for word in neg_seeds]
+                #print(f"Chosen seed words for in {dimension} seem to be valid vectors in {set_name}.")
+            except KeyError:
+                print(f"One or more seed words not found in the embedding space of {dimension}. Please check the seeds file and make sure to use \"valid seeds\".")
+                return None
 
+            for model in model_list: # Iterate through the list of models in each set
+                #print(f"Training SVMs on {set_name} for {dimension}...")
                 # Train the SVMs on centroids
-                svm_estimators = train_svms_on_centroids(seed_vectors_1, seed_vectors_2, n_clusters=3)
+                #svm_estimators = train_svms_on_different_subsets(model, seed_vectors_pos, pos_seeds, seed_vectors_neg, neg_seeds) # n_cluster = 3 in older version
+                #svm_estimators, weights = train_svms_on_different_subsets(seed_vectors_pos, pos_seeds, seed_vectors_neg, neg_seeds, model, n_clusters=3, n_svm=5)
+                #print(f"Training of SVMs done. Now computing distances for {target_word} in {set_name} for {dimension}...")
+                svm_estimator = connotative_hyperplane(seed_vectors_neg, seed_vectors_pos)
                 
                 # Compute distance to decision boundary provided by the SVMs for the target word
-                distance = distance_from_svms(svm_estimators, model.wv[target_word])
+                #distance = distance_from_svms(svm_estimators, weights, model.wv[target_word])
+                distance = distance_svm(svm_estimator, model.wv[target_word])
                 set_distances.append(distance) # store distance for calculation of average of all models in the set
             
             # Average the distances for the current set
+            print(f"These are the calculated distances for {set_name}: {set_distances}")
             if set_distances:
                 avg_distance = np.mean(set_distances)
                 distances[dimension][set_name].append(avg_distance)
 
-            # print average distance for manual check
-            for dimension, avg_dists in average_distances.items():
-                print(f"Average distances for {dimension}: {avg_dists}")
+    # Update average distances after all dimensions are processed
+    for dimension, sets in distances.items():
+        for set_name, avg_dists in sets.items():
+            average_distances[dimension][set_name] = np.mean(avg_dists)
 
-        connotation_heatmap(average_distances, [f'{target_word}_set_A', f'{target_word}_set_B'])
-        return None
+    connotation_heatmap(average_distances, [f'{target_word}_set_A', f'{target_word}_set_B'])
+    return None
 
 if __name__ == '__main__':
     main()

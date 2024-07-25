@@ -53,16 +53,18 @@ def train_svms_on_different_subsets(seed_vectors_1, seed_vectors_2, n_clusters=3
         # Randomly sample subsets of seed vectors
         subset_indices_1 = np.random.choice(len(seed_vectors_1), len(seed_vectors_1) // 2, replace=False) # sample half of the seed vectors
         subset_indices_2 = np.random.choice(len(seed_vectors_2), len(seed_vectors_2) // 2, replace=False) # sample half of the seed vectors
-        subset_1 = seed_vectors_1[subset_indices_1]
-        subset_2 = seed_vectors_2[subset_indices_2]
+        subset_1 = np.array(seed_vectors_1)[subset_indices_1]
+        subset_2 = np.array(seed_vectors_2)[subset_indices_2]
 
         # Compute centroids for the subsets
-        centroids_1 = compute_centroids(subset_1, n_clusters)
-        centroids_2 = compute_centroids(subset_2, n_clusters)
+        #centroids_1 = compute_centroids(subset_1, n_clusters)
+        #centroids_2 = compute_centroids(subset_2, n_clusters)
 
         # Combine centroids and labels
-        X = np.vstack((centroids_1, centroids_2)) # combine centroids into input array
-        y = np.array([1] * len(centroids_1) + [-1] * len(centroids_2)) # create labels for centroids
+        #X = np.vstack((centroids_1, centroids_2)) # combine centroids into input array
+        X = np.vstack((subset_1, subset_2)) # combine centroids into input array
+        #y = np.array([1] * len(centroids_1) + [-1] * len(centroids_2)) # create labels for centroids
+        y = np.array([1] * len(subset_1) + [-1] * len(subset_2)) # create labels for centroids
 
         # Train SVM
         svm = SVC(kernel=cosine_kernel, probability=True) # use cosine kernel with probability estimates to enable soft voting
