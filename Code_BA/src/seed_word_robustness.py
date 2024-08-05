@@ -1,125 +1,110 @@
-    
 import json
 import random
 import itertools
-from old_heatmap_methods.connotative_heatmap import load_models
-from svm_ensemble_functions import train_svms_on_centroids
+import numpy as np
+from collections import defaultdict
+from load_models import load_models
+from svm_functions import connotative_hyperplane, distance_svm
 
 def load_seeds():
     """
-    This function is used to check the robustness of the seed words.
+    Load the seed words from a JSON file.
     """
     try:
-        with open('data/data_helper/seeds.json', 'r') as f:
-                dic_seeds = json.load(f) # store list of seeds in a dictionary
+        with open('data/data_helper/valid_seeds.json', 'r') as f:
+            dic_seeds = json.load(f)
     except FileNotFoundError:
-        print("couldn't find seeds at specified path.")
+        print("Couldn't find seeds at specified path.")
+        return None
 
+    return dic_seeds
 
-        for key in dic_seeds:
-            print(f"Seed set: {key}")
-            pos_seeds = dic_seeds[key]['pos_pole'] # assign seeds to negative and positive poles
-            neg_seeds = dic_seeds[key]['neg_pole']
-            print(f"Positive seeds: {pos_seeds}") # print to check if it worked
-            print(f"Negative seeds: {neg_seeds}")
-    
-    return pos_seeds, neg_seeds
-
-def seed_set_combinations(pos_seeds, neg_seeds, seeds_per_set=10, sample_size=50):
+def seed_set_combinations(pos_seeds, neg_seeds, seeds_per_set=5, sample_size=2):
     """
-    This function returns a random sample of combinations of a positive seed set with a negative seed set,
-    with a specified number of seeds per set out of an original set of 20 seeds.
-
-    Parameters:
-    pos_seeds (list): A list of positive seed vectors.
-    neg_seeds (list): A list of negative seed vectors.
-    seeds_per_set (int): The number of seeds per set to select (default is 10).
-    sample_size (int): The number of random combinations to return (default is 50).
-
-    Returns:
-    list of tuples: A list of tuples where each tuple contains two lists: 
-                    a combination of positive seeds and a combination of negative seeds.
+    Return a random sample of combinations of a positive seed set with a negative seed set.
     """
-    
     pos_combinations = list(itertools.combinations(pos_seeds, seeds_per_set))
     neg_combinations = list(itertools.combinations(neg_seeds, seeds_per_set))
 
-    # Randomly sample combinations without creating the full cartesian product
-    sampled_combinations = []
-    for _ in range(sample_size):
-        pos_sample = random.choice(pos_combinations)
-        neg_sample = random.choice(neg_combinations)
-        sampled_combinations.append((list(pos_sample), list(neg_sample)))
+    # Shuffle the combinations to ensure randomness
+    random.shuffle(pos_combinations)
+    random.shuffle(neg_combinations)
+
+    # Ensure we have enough combinations to sample from
+    max_samples = min(len(pos_combinations), len(neg_combinations), sample_size)
+
+    # Select combinations without replacement
+    sampled_combinations = [
+        (list(pos_combinations[i]), list(neg_combinations[i]))
+        for i in range(max_samples)
+    ]
     
     return sampled_combinations
 
-def main(): 
-    target_word = "feminist"
-    set = 'set_B'
-    distances_multiple_svm = {}
-    distances_single_svm = {}
-    models = load_models(set, spellchecker=False)
-    model = models[0] # use only one model for demonstration purposes
+def calculate_variances_and_means(distances_svm):
+    """
+    Calculate the variance and mean of distances for each connotative dimension.
+    """
+    variances = {key: np.var(list(distances.values())) for key, distances in distances_svm.items()}
+    means = {key: np.mean(list(distances.values())) for key, distances in distances_svm.items()}
+    return variances, means
 
-    # Check if models are loaded
+def main(): 
+    target_word = "nation"
+    set_name = 'left'
+    distances_multiple_svm = defaultdict(lambda: defaultdict(list))
+    models = load_models('left', 'right', spellchecker=False)
+    model = models['left'][0]  # use only one model for demonstration purposes
+
     if not models:
         print("No models loaded. Please check the set and ensure models are correctly loaded.")
         return None
 
-    # Check if target word is in the embedding space
-    if target_word in models[0].wv.key_to_index: # if the word is in one ES, it is in all of them as they're trained on the exact same vocabulary
-        print(f"Word '{target_word}' found in the embedding space.")
-    else:
+    if target_word not in model.wv:
         print(f"Word '{target_word}' not found in the embedding space. Please try another one")
         return None
     
-    # Load seeds from file
-    try:
-        with open('data/data_helper/seeds.json', 'r') as f:
-                dic_seeds = json.load(f) # store list of seeds in a dictionary
-    except FileNotFoundError:
-        print("couldn't find seeds at specified path.")
+    dic_seeds = load_seeds()
+    if not dic_seeds:
+        return None
 
-    # iterate through connotative dimensions (keys) of interest
     for key in dic_seeds:
-            print(f"Seed set: {key}") # current connotative dimension
-            pos_seeds = dic_seeds[key]['pos_pole'] # assign seeds to negative and positive poles as specified in file
-            neg_seeds = dic_seeds[key]['neg_pole']
+        print(f"Seed set: {key}")
+        pos_seeds = dic_seeds[key]['pos_pole']
+        neg_seeds = dic_seeds[key]['neg_pole']
 
-            # Ensure seed_vectors_1 and seed_vectors_2 are converted to vectors for training
-            
+        # Ensure seed_vectors_1 and seed_vectors_2 are converted to vectors for training
+        seed_vectors_pos = [model.wv[word] for word in pos_seeds if word in model.wv]
+        seed_vectors_neg = [model.wv[word] for word in neg_seeds if word in model.wv]
+
+        # Train a single SVM on the complete seed set for Comparison
+        svm_all = connotative_hyperplane(seed_vectors_pos, seed_vectors_neg)
+        distance_all = distance_svm(svm_all, model.wv[target_word])
+        print(f"Distance to connotative hyperplane for dimension {key} on complete seed set: {distance_all}")
+
+        seed_set_combinations_list = seed_set_combinations(pos_seeds, neg_seeds)  # get combinations of seed sets
+
+        for pos_sample, neg_sample in seed_set_combinations_list:
             try:
-                seed_vectors_1 = [model.wv[word] for word in pos_seeds]
-                seed_vectors_2 = [model.wv[word] for word in neg_seeds]
+                seed_vectors_pos = [model.wv[word] for word in pos_sample]
+                seed_vectors_neg = [model.wv[word] for word in neg_sample]
             except KeyError:
-                 print("One or more seed words not found in the embedding space. Please check the seeds file.")
+                print("One or more seed words not found in the embedding space. Please check the seeds file.")
+                continue
 
-            print(f"Positive seeds: {pos_seeds}") # print to check if it worked
-            print(f"Negative seeds: {neg_seeds}")
+            # Train multiple SVMs on different subsets of seed sets
+            svm = connotative_hyperplane(seed_vectors_neg, seed_vectors_pos)
+            distance = distance_svm(svm, model.wv[target_word])
+            distances_multiple_svm[key][target_word].append(distance)
 
-            seed_set_combinations = seed_set_combinations(pos_seeds, neg_seeds) # get all possible combinations of seed sets
-            
-            for seed_set in seed_set_combinations:
-                 
-                distances_multiple_svm[key] = defaultdict(list)  # Initialize as defaultdict of lists
         
-                ### APPROACH 1: Train SVMs on centroids
-                svm_estimators = train_svms_on_centroids(seed_vectors_1, seed_vectors_2, n_clusters=3)
-
-                distance = distance_from_svms(svm_estimators, model.wv[word])
-                distances[key][word].append(distance)
-
-
-                ### APPROACH 2: Train a single SVM
-                svm = connotative_hyperplane(seed_vectors_1, seed_vectors_2)
-                distance = distance_svm(svm, model.wv[word])
-                distances_single_svm[key][word].append(distance)
             
-            # store the variance of distance to connotative hyperplane for current key for both approaches
-            variance_multiple_svm = np.var(list(distances_multiple_svm[key].values()))
-            variance_single_svm = np.var(list(distances_single_svm[key].values()))
+
+    variance_multiple_svm, mean_multiple_svm = calculate_variances_and_means(distances_multiple_svm)
+
 
     print(f"Variance of distance to connotative hyperplane for multiple SVMs: {variance_multiple_svm}")
-    print(f"Variance of distance to connotative hyperplane for single SVM: {variance_single_svm}")
-    # rewrite into dataframe!
+    print(f"Mean distance to connotative hyperplane for multiple SVMs: {mean_multiple_svm}")
 
+if __name__ == "__main__":
+    main()

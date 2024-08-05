@@ -1,17 +1,17 @@
 {
     "Social Value": {
-        "pos_pole": ["important", "worthy", "benefitial", "value", "valued", "meaning", "meaningful", "principal", "significant", "pertinence", "pertinant", "precedence", "pertinent", "supreme", "supremacy", "centre", "significance", "status", "significant", "main"],
-        "neg_pole": ["unworthy", "failure", "failed", "unsuccessful", "unsuccessful", "disrespected", "disgraced", "disgrace", "shame", "shamed", "shameful", "disgraceful", "devalue", "devalued", "downgrade", "inferior", "inferiority", "insignificance", "insignificant", "meaningless", "below"]
+        "pos_pole": ["important", "worthy", "benefitial", "valued", "meaningful", "principal", "significant", "pertinent", "superior", "centred", "prestitious", "respectable", "admirable", "esteemful", "useful"],
+        "neg_pole": ["worthless", "disrespected", "shameful", "devalued", "downgrade", "inferior",  "insignificant", "meaningless", "below", "useless", "unimportant"]
     },
 
     "Politeness": {
-        "pos_pole": ["polite", "chivalrous", "respectful", "mannered", "tactful", "chivalric", "graceful", "courteous", "civilly", "civilized", "gallantry", "sugarcoat", "urbane", "deferentially", "coated", "comity", "cordial", "sensitive", "considerate", "thoughtful"],
-        "neg_pole": ["rude", "disrespectful", "impolite", "cheeky", "impertinent", "impudent", "insolent", "abrasive", "vulgar", "inconsiderate", "thoughtless", "disrespectful", "inconsiderate", "insensitive", "blunt", "unfriendly", "harsh", "discourteous", "unmannerly", "improper"]
+        "pos_pole": ["polite", "chivalrous", "respectful", "mannered", "tactful", "chivalric", "graceful", "courteous", "cordial", "sensitive", "considerate", "thoughtful", "friendly"],
+        "neg_pole": ["rude", "disrespectful", "impolite", "vulgar", "inconsiderate", "thoughtless", "disrespectful", "inconsiderate", "insensitive", "blunt", "unfriendly", "harsh", "discourteous", "unmannerly", "improper"]
     },
 
     "Impact": {
-        "pos_pole": ["impactful", "influential", "effective", "important", "consequential", "significant", "powerful", "authoritative", "forceful", "masterful", "effective", "meaningful", "effectful", "marking", "guiding", "striking", "resonant", "reaching", "serious"], 
-        "neg_pole": ["weak", "helplessness", "impotent", "powerless", "insignificant", "inconsequential", "unimportant", "ineffective", "insignificant", "unpersuasive", "unforceful", "incapable", "unable", "unconvincing", "minor", "inessential", "peripheral", "secondary", "trivial", "unserious"]
+        "pos_pole": ["impactful", "influential", "effective", "important", "consequential", "significant", "powerful", "authoritative", "forceful", "effective", "meaningful", "effectful", "marking", "guiding", "striking", "resonant", "reaching", "serious"], 
+        "neg_pole": ["weak", "helplessness", "impotent", "powerless", "insignificant", "inconsequential", "unconvincing", "minor", "inessential", "peripheral", "secondary", "trivial"]
     }, 
 
     "Factuality": {
@@ -21,7 +21,7 @@
     },
 
     "Sentiment":{
-        "pos_pole": ["positive", "positively", "good", "well", "favorable", "approving", "approvable", "great", "nice", "right", "pleasing", "pleasant", "supporting", "appreciative", "admiring", "enjoyable", "delightful", "nice", "agreeable", "proper", "welcome"],
-        "neg_pole": ["negative", "bad", "wrong", "evil", "improper", "unsatisfactory", "unpleasant", "disagreeable", "unwelcome", "ghastly", "unfavorable", "disapproving", "unacceptable", "lousy", "invalid", "unreasonable", "stupid", "awful", "horrible", "terrible" ]
+        "pos_pole": ["positive", "positively", "good", "well", "favorable", "approving", "approvable", "great", "nice", "right",  "pleasant", "admirable", "enjoyable", "delightful", "nice", "welcome"],
+        "neg_pole": ["negative", "bad", "wrong", "evil", "improper",  "unpleasant", "disagreeable", "unwelcome", "unacceptable", "lousy", "stupid", "awful", "horrible", "terrible" ]
     }
 }

@@ -3,6 +3,7 @@ import logging
 import csv
 import sys
 from gensim.models import Word2Vec
+from concurrent.futures import ProcessPoolExecutor
 
 # Increase the CSV field size limit to handle large fields
 csv.field_size_limit(10**6)
@@ -18,6 +19,7 @@ def read_processed_comments(file_path, chunk_size=10000):
     Yields:
         list: A list of processed comments (10 words per line).
     """
+    chunk_count = 0  # Initialize chunk counter
     try:
         with open(file_path, 'r', encoding='utf-8') as csvfile:
             reader = csv.reader(csvfile)
@@ -26,14 +28,33 @@ def read_processed_comments(file_path, chunk_size=10000):
                 if len(line) == 10:
                     chunk.append(line)
                 if len(chunk) >= chunk_size:
+                    chunk_count += 1
+                    if chunk_count % 10 == 0: # Print progress every 10 chunks
+                        print(f"Processed {chunk_count} chunks from {file_path}")
                     yield chunk
                     chunk = []
             if chunk:
                 yield chunk
+            print("Finished reading the CSV file.")
     except (IOError, FileNotFoundError) as e:
         print(f"Error reading the CSV file {file_path}: {e}")
 
-def word2vec_model(sentences, vector_size=300, window=10, min_count=15, workers=4, epochs=5, sg=1, negative=5):
+def read_and_process_file(file_path):
+    """
+    Reads and processes a file using read_processed_comments and returns all sentences.
+    
+    Args:
+        file_path (str): The path to the file containing the processed comments.
+    
+    Returns:
+        list: A list of sentences read from the file.
+    """
+    sentences = []
+    for chunk in read_processed_comments(file_path):
+        sentences.extend(chunk)
+    return sentences
+
+def word2vec_model(sentences, vector_size=300, window=10, min_count=15, workers=4, epochs=5, sg=1, negative=5, hs=0):
     """
     Trains a Word2Vec model on the provided sentences using skip-gram with negative sampling.
 
@@ -61,11 +82,12 @@ def word2vec_model(sentences, vector_size=300, window=10, min_count=15, workers=
     print(f"Number of workers: {workers}")
     print(f"Number of epochs: {epochs}")
     print(f"Skip-gram: {sg == 1}")
-    print(f"Negative samples: {negative}")
+    print(f"hierarchical softmax: {hs == 0}")
+    print(f"Negative sampling: {negative}")
 
     try:
         # Initialize the model
-        model = Word2Vec(vector_size=vector_size, window=window, min_count=min_count, workers=workers, sg=sg, negative=negative)
+        model = Word2Vec(vector_size=vector_size, window=window, min_count=min_count, workers=workers, sg=sg, hs=hs)
         
         # Build the vocabulary from the sentences
         print("Building vocabulary...")
@@ -113,20 +135,24 @@ def main():
     model_folder = "models/new/"
     os.makedirs(model_folder, exist_ok=True)
     # specify number of times the same model is trained
-    num_trainings = 10
+    num_trainings = 5
 
     # Load the processed comments and train the Word2Vec models
-    for data_folder in [data_folder_1, data_folder_2]:
-        sentences = []
-        for dataset in os.listdir(data_folder): # summarizing data of the same set
-            try:
-                file_path = os.path.join(data_folder, dataset)
-                if os.path.isfile(file_path):
-                    for chunk in read_processed_comments(file_path):
-                        sentences.extend(chunk)
-            except Exception as e:
-                print(f"Error processing the dataset {dataset}: {e}")
-                continue
+    for data_folder in [data_folder_1]: # removed datafolder 2 for now
+        datasets = [os.path.join(data_folder, dataset) for dataset in os.listdir(data_folder) if os.path.isfile(os.path.join(data_folder, dataset))]
+        
+        # Process files in parallel
+        with ProcessPoolExecutor() as executor:
+            results = executor.map(read_and_process_file, datasets)
+            
+            sentences = []
+            chunk_count = 0
+            for result in results:
+                sentences.extend(result)
+                chunk_count += 1
+                if chunk_count % 10 == 0: # Print progress every 10 chunks
+                    print(f"Processed {chunk_count} chunks in total")
+
         if sentences:
             print(f"Total number of sentences for training in {data_folder}: {len(sentences)}")
             # train the model num_trainings times

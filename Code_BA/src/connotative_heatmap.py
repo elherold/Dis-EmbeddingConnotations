@@ -13,6 +13,7 @@ from svm_functions import connotative_hyperplane, distance_svm
 from collections import defaultdict
 from load_models import load_models
 import sys
+from centroid_functions import connotative_dim, distance_centroid
 
 def connotation_heatmap(distances, target_word, cbar=True):
     """
@@ -47,18 +48,27 @@ def connotation_heatmap(distances, target_word, cbar=True):
     plt.figure(figsize=(10, 8))
     
     # Generate a heatmap
-    sns.heatmap(df.T, cbar=cbar, annot=True, fmt=".2f", cmap='coolwarm', vmin=-1, vmax=1, cbar_kws={'label': 'Distance to Decision Boundary'})
+    ax = sns.heatmap(df.T, cbar=cbar, annot=False, cmap='coolwarm', vmin=-1, vmax=1, cbar_kws={'label': 'Distance to Decision Boundary'})
+    
+    # Set the colorbar fontsize
+    if cbar:
+        cbar = ax.collections[0].colorbar
+        cbar.ax.set_ylabel('Distance to Decision Boundary', fontsize=17)
+        cbar.ax.tick_params(labelsize=15)
     
     # Set the title and labels
-    plt.title(f'Heatmap of Distances to Decision Boundary for {target_word[0].split("_")[0]}')
-    plt.xlabel('Source Sets')
-    plt.ylabel('Connotation Dimensions')
+    plt.title(f'Distances to Decision Boundary for: {target_word[0].split("_")[0]}', fontsize=18)
+    plt.xlabel('Source datasets', fontsize=18)
+    plt.xticks(fontsize=15)
+    plt.ylabel('Connotation Dimensions', fontsize=18)
+    plt.yticks(fontsize=15)
+
     
     # Save the heatmap as a file
     output_dir = 'data/figures/heatmaps'
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-    output_path = os.path.join(output_dir, f'heatmap_weights_{target_word[0].split("_")[0]}_centroid.png')
+    output_path = os.path.join(output_dir, f'heatmap_{target_word[0].split("_")[0]}_centroid.png')
     plt.savefig(output_path)
     
     # Show the heatmap
@@ -66,11 +76,11 @@ def connotation_heatmap(distances, target_word, cbar=True):
 
 def main():
     target_word = input("Please enter the target word (only single words): ").lower()
-    models = load_models('set_A', 'set_B', spellchecker=False)
+    models = load_models('left', 'right', spellchecker=False)
     print(f"Models loaded: {models.keys()}")
     # print the length of the models to check if they are loaded correctly
-    print(f"Length of models in set A: {len(models['set_A'])}")
-    print(f"Length of models in set B: {len(models['set_B'])}")
+    print(f"Length of models in set left: {len(models['left'])}")
+    print(f"Length of models in set right: {len(models['right'])}")
     distances = defaultdict(lambda: defaultdict(list))
     average_distances = defaultdict(dict)
     
@@ -91,7 +101,7 @@ def main():
     
     # Load seeds from file
     try:
-        with open('data/data_helper/valid_seeds_old.json', 'r') as f:
+        with open('data/data_helper/valid_seeds.json', 'r') as f:
                 dic_seeds = json.load(f) # store list of seeds in a dictionary
     except FileNotFoundError:
         print("couldn't find seeds at specified path.")
@@ -108,26 +118,23 @@ def main():
             #print(f"Model set: {set_name}") # current model set
             set_distances = []
 
-            try:
-                # Ensure seed_vectors_1 and seed_vectors_2 are converted to vectors for training
-                seed_vectors_pos = [model_list[0].wv[word] for word in pos_seeds] # all models in a set are trained on the same vocabulary
-                seed_vectors_neg = [model_list[0].wv[word] for word in neg_seeds]
-                #print(f"Chosen seed words for in {dimension} seem to be valid vectors in {set_name}.")
-            except KeyError:
-                print(f"One or more seed words not found in the embedding space of {dimension}. Please check the seeds file and make sure to use \"valid seeds\".")
-                return None
-
             for model in model_list: # Iterate through the list of models in each set
-                #print(f"Training SVMs on {set_name} for {dimension}...")
-                # Train the SVMs on centroids
-                #svm_estimators = train_svms_on_different_subsets(model, seed_vectors_pos, pos_seeds, seed_vectors_neg, neg_seeds) # n_cluster = 3 in older version
-                #svm_estimators, weights = train_svms_on_different_subsets(seed_vectors_pos, pos_seeds, seed_vectors_neg, neg_seeds, model, n_clusters=3, n_svm=5)
-                #print(f"Training of SVMs done. Now computing distances for {target_word} in {set_name} for {dimension}...")
-                svm_estimator = connotative_hyperplane(seed_vectors_neg, seed_vectors_pos)
+
+                try:
+                # Ensure seed_vectors_1 and seed_vectors_2 are converted to vectors for training
+                    seed_vectors_pos = [model.wv[word] for word in pos_seeds] # all models in a set are trained on the same vocabulary
+                    seed_vectors_neg = [model.wv[word] for word in neg_seeds]
+                    #print(f"Chosen seed words for in {dimension} seem to be valid vectors in {set_name}.")
+                except KeyError:
+                    print(f"One or more seed words not found in the embedding space of {dimension}. Please check the seeds file and make sure to use \"valid seeds\".")
+                    return None
+            
+                #svm_estimator = connotative_hyperplane(seed_vectors_pos, seed_vectors_neg)
+                connotative_dimen = connotative_dim(seed_vectors_pos, seed_vectors_neg)
                 
                 # Compute distance to decision boundary provided by the SVMs for the target word
-                #distance = distance_from_svms(svm_estimators, weights, model.wv[target_word])
-                distance = distance_svm(svm_estimator, model.wv[target_word])
+                #distance = distance_svm(svm_estimator, model.wv[target_word])
+                distance = distance_centroid(connotative_dimen, model.wv[target_word])
                 set_distances.append(distance) # store distance for calculation of average of all models in the set
             
             # Average the distances for the current set
@@ -141,7 +148,7 @@ def main():
         for set_name, avg_dists in sets.items():
             average_distances[dimension][set_name] = np.mean(avg_dists)
 
-    connotation_heatmap(average_distances, [f'{target_word}_set_A', f'{target_word}_set_B'])
+    connotation_heatmap(average_distances, [f'{target_word}_left', f'{target_word}_right'])
     return None
 
 if __name__ == '__main__':
