@@ -82,8 +82,8 @@ def compute_union_of_neighbors(models, word, k=10):
 
     # Calculate average scores
     average_scores = [(neighbor, np.mean(scores)) for neighbor, scores in neighbor_scores.items()]
-    # Sort by average score in ascending order (smaller distances are closer neighbors)
-    average_scores.sort(key=lambda x: x[1])
+    # Sort by average score 
+    average_scores.sort(key=lambda x: x[1]) 
 
     return average_scores[:k]
 

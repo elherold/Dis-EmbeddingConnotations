@@ -95,6 +95,28 @@ def filter_target_words(targetwords, models):
     print(f"Number of target words present in all models: {len(filtered_words)}")
     return filtered_words
 
+def find_similar_frequency_word(word, models, vocab_intersection):
+    # Get the frequency of the target word in both models
+    freq_left = models['left'][0].wv.get_vecattr(word, "count")
+    freq_right = models['right'][0].wv.get_vecattr(word, "count")
+    
+    # Define a tolerance for frequency similarity
+    tolerance = 0.1  # 10% tolerance
+    
+    similar_words = []
+    for candidate_word in vocab_intersection:
+        candidate_freq_left = models['left'][0].wv.get_vecattr(candidate_word, "count")
+        candidate_freq_right = models['right'][0].wv.get_vecattr(candidate_word, "count")
+        
+        # Check if candidate word has similar frequency in both models
+        if (abs(freq_left - candidate_freq_left) / freq_left <= tolerance) and (abs(freq_right - candidate_freq_right) / freq_right <= tolerance):
+            similar_words.append(candidate_word)
+    
+    if similar_words:
+        return random.choice(similar_words)
+    else:
+        return None
+
 def plot_mean_distances_boxplot(intra_means, inter_means, intra_ci, inter_ci, title, ylabel):
     # Plot box plot bar-charts with confidence intervals
     plt.figure(figsize=(10, 6))
@@ -144,12 +166,16 @@ def main():
     print("Performing bootstrapping to calculate confidence intervals for mean distances...")
     intra_ci, inter_ci, mean_intra_distances, mean_inter_distances = bootstrap_mean_distances(targetwords, models)
 
-    # Sample 98 random words from the intersection of the vocabularies
+    # Sample 98 random words with similar frequency
     vocab_intersection = set.intersection(*(set(model.wv.index_to_key) for model_set in models.values() for model in model_set))
-    random_sample_words = random.sample(list(vocab_intersection), 98)
-
+    random_sample_words = []
+    for word in targetwords:
+        similar_word = find_similar_frequency_word(word, models, vocab_intersection)
+        if similar_word:
+            random_sample_words.append(similar_word)
+    
     # Perform bootstrapping for random sampled words
-    print("Performing bootstrapping for random sampled words...")
+    print("Performing bootstrapping for frequency-matched sampled words...")
     _, inter_ci_random, _, mean_inter_distances_random = bootstrap_mean_distances(random_sample_words, models)
 
     # Plot boxplots for intra vs inter for target words
@@ -162,7 +188,7 @@ def main():
     
     # Data for box plots
     data = [list(mean_inter_distances.values()), list(mean_inter_distances_random.values())]
-    labels = ['Target Words', 'Random Sampled Words']
+    labels = ['Target Words', 'Frequency-Matched Random Words']
     
     # Create box plots
     plt.boxplot(data, labels=labels, patch_artist=True, showmeans=True, showfliers=False)
@@ -177,7 +203,7 @@ def main():
     plt.ylabel('Mean Cosine Distance', fontsize=14)
     
     # Title of the plot
-    plt.title('Comparison of Inter-Dataset Mean Cosine Distances (Target Words vs Random Words)', fontsize=16, fontweight='bold')
+    plt.title('Comparison of Inter-Dataset Mean Cosine Distances (Target Words vs Frequency-Matched Random Words)', fontsize=16, fontweight='bold')
     
     # Adding grid for better readability
     plt.grid(True)

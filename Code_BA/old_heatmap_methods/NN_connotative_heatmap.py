@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import json
 import seaborn as sns
 import pandas as pd
-from new_ensemble_functions_svm import train_svms_on_different_subsets, distance_from_svms
+from old_heatmap_methods.new_ensemble_functions_svm import train_svms_on_different_subsets, distance_from_svms
 from svm_functions import connotative_hyperplane, distance_svm
 from collections import defaultdict
 from load_models import load_models

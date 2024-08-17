@@ -2,7 +2,7 @@ import json
 import os
 import numpy as np
 from collections import defaultdict
-from reliability_ES import (
+from old_heatmap_methods.reliability_ES_old import (
     calculate_second_order_similarity_vectors,
     calculate_mean_cosine_distances
 )

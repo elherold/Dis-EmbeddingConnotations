@@ -19,11 +19,11 @@ def get_word_frequencies(models):
     for model_set in models.values():
         for model in model_set:
             for word, vocab_obj in model.wv.key_to_index.items():
-                word_freqs[word] += model.wv.get_vecattr(word, 'count')
+                word_freqs[word] += int(model.wv.get_vecattr(word, 'count'))
                 
     return word_freqs
 
-def save_top_words_by_frequency(word_freqs, n=120, output_file='top_words_by_frequency.json'):
+def save_top_words_by_frequency(word_freqs, n=120, output_file='data/data_helper/top_words_by_frequency.json'):
     """
     Save the top N words by frequency to a JSON file.
 
@@ -51,7 +51,7 @@ def main():
     word_freqs = get_word_frequencies(models)
 
     # Save the top 120 words by frequency to a JSON file
-    save_top_words_by_frequency(word_freqs, n=120, output_file='top_words_by_frequency.json')
+    save_top_words_by_frequency(word_freqs, n=120, output_file='data/data_helper/top_words_by_frequency.json')
 
 if __name__ == "__main__":
     main()
