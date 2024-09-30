@@ -1,7 +1,8 @@
 # (Dis)EmbeddingConnotations
 
- **BA Project** *Navigating Politically Loaded Language - Static Word Embeddings as a Tool for Exploring Connotations* - by Elena Herold
--------------------------
+**BA Project** *Navigating Politically Loaded Language - Static Word Embeddings as a Tool for Exploring Connotations* 
+- by Elena Herold
+
 ## Technical Setup
 This project was implemented with Python version Python 3.12.3
 Steps to run the code: 
@@ -12,6 +13,8 @@ Steps to run the code:
 2. To load necessary datasets and trained models...
 
 ## Content
+### Objectives
+Write short statement about what I wish to achieve with this project
 ### Folder Structure
 ```
 Code_BA/
