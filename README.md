@@ -64,10 +64,10 @@ Code_BA/
 
 ### Description of Python Files
 **1. Folder: Connotative heatmap**
-  - centroid_functions.py: Description of what it does
-  - svm_functions.py: Description of what it does
-  - test_seedwords.py: Des
-  - connotative_heatmap.py: des
+  - **centroid_functions.py:** Description of what it does
+  - **svm_functions.py:** Description of what it does
+  - **test_seedwords.py:** Des
+  - **connotative_heatmap.py:** des
 
 
 
