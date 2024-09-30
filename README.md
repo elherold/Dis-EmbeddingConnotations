@@ -15,6 +15,7 @@ Steps to run the code:
 
 ## Content
 ### Folder Structure
+```
 Code_BA/
 ├── data/
 │   ├── data_helper/
@@ -35,6 +36,7 @@ Code_BA/
 │   └── main.py
 ├── README.md
 └── requirements.txt
+```
 
 
 
