@@ -1,5 +1,6 @@
 # (Dis)EmbeddingConnotations
-##BA Project titled *Navigating Politically Loaded Language - Static Word Embeddings as a Tool for Exploring Connotations*
+## BA Project titled *Navigating Politically Loaded Language - Static Word Embeddings as a Tool for Exploring Connotations*
+
 by Elena Herold
 -----------------------------------
 
