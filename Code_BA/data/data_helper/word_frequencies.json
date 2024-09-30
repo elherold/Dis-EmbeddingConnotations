@@ -1,31 +1,183 @@
 {
-    "blackness": {
-        "left": 12065,
-        "right": 1970
+    "ancestors": {
+        "left": 28145,
+        "right": 14700
     },
-    "whiteness": {
-        "left": 12315,
-        "right": 2650
+    "erasure": {
+        "left": 4880,
+        "right": 1095
     },
-    "intersectionality": {
-        "left": 3275,
-        "right": 1485
+    "immigrant": {
+        "left": 148770,
+        "right": 52630
     },
-    "empowerment": {
-        "left": 27365,
-        "right": 13890
+    "spirit": {
+        "left": 179810,
+        "right": 116150
     },
-    "woke": {
-        "left": 46305,
-        "right": 64575
+    "colorblindness": {
+        "left": 1185,
+        "right": 230
+    },
+    "intersex": {
+        "left": 3440,
+        "right": 2225
+    },
+    "fat": {
+        "left": 217040,
+        "right": 177415
+    },
+    "shrill": {
+        "left": 4650,
+        "right": 2035
+    },
+    "manspreading": {
+        "left": 325,
+        "right": 710
+    },
+    "migrants": {
+        "left": 77250,
+        "right": 80865
+    },
+    "disability": {
+        "left": 53505,
+        "right": 39360
     },
     "nurse": {
         "left": 66175,
         "right": 80270
     },
-    "saltwater": {
-        "left": 3345,
-        "right": 9565
+    "barbarian": {
+        "left": 1775,
+        "right": 1055
+    },
+    "mistress": {
+        "left": 14575,
+        "right": 29075
+    },
+    "slaves": {
+        "left": 43680,
+        "right": 19165
+    },
+    "deaf": {
+        "left": 26155,
+        "right": 20590
+    },
+    "reclamation": {
+        "left": 3055,
+        "right": 665
+    },
+    "enslavement": {
+        "left": 4075,
+        "right": 1280
+    },
+    "oriental": {
+        "left": 5730,
+        "right": 5995
+    },
+    "homestead": {
+        "left": 4485,
+        "right": 2430
+    },
+    "lightness": {
+        "left": 4905,
+        "right": 1210
+    },
+    "white": {
+        "left": 1943750,
+        "right": 1874365
+    },
+    "heteronormativity": {
+        "left": 530,
+        "right": 125
+    },
+    "gossip": {
+        "left": 39240,
+        "right": 24400
+    },
+    "aborigines": {
+        "left": 535,
+        "right": 705
+    },
+    "refugee": {
+        "left": 88615,
+        "right": 36555
+    },
+    "prostitute": {
+        "left": 11670,
+        "right": 13245
+    },
+    "colorism": {
+        "left": 1175,
+        "right": 120
+    },
+    "bias": {
+        "left": 86770,
+        "right": 44175
+    },
+    "nation": {
+        "left": 581070,
+        "right": 335005
+    },
+    "respectability": {
+        "left": 5040,
+        "right": 1675
+    },
+    "silencing": {
+        "left": 6855,
+        "right": 3645
+    },
+    "indian": {
+        "left": 120360,
+        "right": 95870
+    },
+    "patron": {
+        "left": 14675,
+        "right": 18385
+    },
+    "gentile": {
+        "left": 2815,
+        "right": 1285
+    },
+    "craftsmanship": {
+        "left": 3695,
+        "right": 2215
+    },
+    "interracial": {
+        "left": 9725,
+        "right": 2880
+    },
+    "ableism": {
+        "left": 810,
+        "right": 295
+    },
+    "headwrap": {
+        "left": 200,
+        "right": 120
+    },
+    "madam": {
+        "left": 5895,
+        "right": 5200
+    },
+    "microaggression": {
+        "left": 515,
+        "right": 1060
+    },
+    "creole": {
+        "left": 3850,
+        "right": 770
+    },
+    "cracker": {
+        "left": 6230,
+        "right": 6055
+    },
+    "partner": {
+        "left": 323440,
+        "right": 417765
+    },
+    "caucasian": {
+        "left": 6010,
+        "right": 5190
     },
     "master": {
         "left": 122085,
@@ -35,93 +187,121 @@
         "left": 85780,
         "right": 33825
     },
-    "seminal": {
-        "left": 11520,
-        "right": 3270
+    "ethnicity": {
+        "left": 21165,
+        "right": 11160
     },
-    "headwrap": {
-        "left": 200,
-        "right": 120
+    "mankind": {
+        "left": 14125,
+        "right": 10640
     },
-    "camp": {
-        "left": 191875,
-        "right": 186580
-    },
-    "chicana": {
-        "left": 355,
-        "right": 100
-    },
-    "white": {
-        "left": 1943750,
-        "right": 1874365
-    },
-    "ancestors": {
-        "left": 28145,
-        "right": 14700
-    },
-    "oriental": {
-        "left": 5730,
-        "right": 5995
-    },
-    "bias": {
-        "left": 86770,
-        "right": 44175
-    },
-    "migrants": {
-        "left": 77250,
-        "right": 80865
-    },
-    "eskimo": {
-        "left": 1110,
+    "mansplain": {
+        "left": 465,
         "right": 305
-    },
-    "indian": {
-        "left": 120360,
-        "right": 95870
-    },
-    "aborigines": {
-        "left": 535,
-        "right": 705
-    },
-    "craftsmanship": {
-        "left": 3695,
-        "right": 2215
-    },
-    "fat": {
-        "left": 217040,
-        "right": 177415
-    },
-    "heteronormativity": {
-        "left": 530,
-        "right": 125
     },
     "ability": {
         "left": 383110,
         "right": 200565
     },
+    "queer": {
+        "left": 89905,
+        "right": 12800
+    },
+    "saltwater": {
+        "left": 3345,
+        "right": 9565
+    },
+    "blacklist": {
+        "left": 5245,
+        "right": 3195
+    },
+    "homeland": {
+        "left": 96390,
+        "right": 51140
+    },
     "indigenous": {
         "left": 66255,
         "right": 30130
     },
-    "natives": {
-        "left": 11135,
-        "right": 5115
-    },
-    "lightness": {
-        "left": 4905,
-        "right": 1210
-    },
-    "spinster": {
-        "left": 1460,
-        "right": 875
+    "community": {
+        "left": 896215,
+        "right": 445715
     },
     "biracial": {
         "left": 5075,
         "right": 2170
     },
-    "community": {
-        "left": 896215,
-        "right": 445715
+    "anglo": {
+        "left": 9885,
+        "right": 13415
+    },
+    "eskimo": {
+        "left": 1110,
+        "right": 305
+    },
+    "otherness": {
+        "left": 2465,
+        "right": 215
+    },
+    "race": {
+        "left": 574390,
+        "right": 417875
+    },
+    "trans": {
+        "left": 143935,
+        "right": 35905
+    },
+    "natives": {
+        "left": 11135,
+        "right": 5115
+    },
+    "pale": {
+        "left": 34645,
+        "right": 50200
+    },
+    "whiteness": {
+        "left": 12315,
+        "right": 2650
+    },
+    "darkness": {
+        "left": 51465,
+        "right": 25525
+    },
+    "woke": {
+        "left": 46305,
+        "right": 64575
+    },
+    "diversity": {
+        "left": 127000,
+        "right": 68645
+    },
+    "peoplehood": {
+        "left": 280,
+        "right": 100
+    },
+    "ally": {
+        "left": 78365,
+        "right": 52530
+    },
+    "blackness": {
+        "left": 12065,
+        "right": 1970
+    },
+    "foreign": {
+        "left": 576895,
+        "right": 355305
+    },
+    "spinster": {
+        "left": 1460,
+        "right": 875
+    },
+    "chief": {
+        "left": 412550,
+        "right": 397630
+    },
+    "antisemitism": {
+        "left": 1185,
+        "right": 4920
     },
     "gender": {
         "left": 296135,
@@ -131,93 +311,69 @@
         "left": 465,
         "right": 95
     },
-    "race": {
-        "left": 574390,
-        "right": 417875
+    "racial": {
+        "left": 235755,
+        "right": 88900
     },
-    "erasure": {
-        "left": 4880,
-        "right": 1095
+    "tribe": {
+        "left": 44350,
+        "right": 20275
     },
-    "queer": {
-        "left": 89905,
-        "right": 12800
+    "chicana": {
+        "left": 355,
+        "right": 100
     },
-    "anglo": {
-        "left": 9885,
-        "right": 13415
+    "askari": {
+        "left": 250,
+        "right": 155
     },
-    "racialized": {
-        "left": 5280,
-        "right": 360
+    "othering": {
+        "left": 940,
+        "right": 130
     },
-    "ally": {
-        "left": 78365,
-        "right": 52530
+    "color": {
+        "left": 424445,
+        "right": 91335
     },
-    "foreign": {
-        "left": 576895,
-        "right": 355305
+    "bossy": {
+        "left": 3955,
+        "right": 2855
     },
-    "chief": {
-        "left": 412550,
-        "right": 397630
+    "afrikaner": {
+        "left": 525,
+        "right": 135
     },
-    "homestead": {
-        "left": 4485,
-        "right": 2430
+    "mastery": {
+        "left": 12470,
+        "right": 2445
     },
-    "madam": {
-        "left": 5895,
-        "right": 5200
-    },
-    "barbarian": {
-        "left": 1775,
-        "right": 1055
-    },
-    "apache": {
-        "left": 4940,
-        "right": 1885
+    "seminal": {
+        "left": 11520,
+        "right": 3270
     },
     "agency": {
         "left": 428720,
         "right": 239140
     },
-    "diversity": {
-        "left": 127000,
-        "right": 68645
+    "racialized": {
+        "left": 5280,
+        "right": 360
     },
     "freak": {
         "left": 27480,
         "right": 23055
     },
-    "manspreading": {
-        "left": 325,
-        "right": 710
+    "intersectionality": {
+        "left": 3275,
+        "right": 1485
     },
-    "pale": {
-        "left": 34645,
-        "right": 50200
+    "indigeneity": {
+        "left": 85,
+        "right": 75
     },
-    "gentile": {
-        "left": 2815,
-        "right": 1285
-    },
-    "caucasian": {
-        "left": 6010,
-        "right": 5190
-    },
-    "homeland": {
-        "left": 96390,
-        "right": 51140
-    },
-    "otherness": {
-        "left": 2465,
-        "right": 215
-    },
-    "colorism": {
-        "left": 1175,
-        "right": 120
+    "apache": {
+        "left": 4940,
+        "right": 1885
     },
     "beggar": {
         "left": 2025,
@@ -227,168 +383,12 @@
         "left": 1530,
         "right": 71770
     },
-    "microaggression": {
-        "left": 515,
-        "right": 1060
+    "camp": {
+        "left": 191875,
+        "right": 186580
     },
-    "blacklist": {
-        "left": 5245,
-        "right": 3195
-    },
-    "ethnicity": {
-        "left": 21165,
-        "right": 11160
-    },
-    "racial": {
-        "left": 235755,
-        "right": 88900
-    },
-    "silencing": {
-        "left": 6855,
-        "right": 3645
-    },
-    "peoplehood": {
-        "left": 280,
-        "right": 100
-    },
-    "patron": {
-        "left": 14675,
-        "right": 18385
-    },
-    "deaf": {
-        "left": 26155,
-        "right": 20590
-    },
-    "prostitute": {
-        "left": 11670,
-        "right": 13245
-    },
-    "cracker": {
-        "left": 6230,
-        "right": 6055
-    },
-    "trans": {
-        "left": 143935,
-        "right": 35905
-    },
-    "shrill": {
-        "left": 4650,
-        "right": 2035
-    },
-    "bossy": {
-        "left": 3955,
-        "right": 2855
-    },
-    "othering": {
-        "left": 940,
-        "right": 130
-    },
-    "mistress": {
-        "left": 14575,
-        "right": 29075
-    },
-    "immigrant": {
-        "left": 148770,
-        "right": 52630
-    },
-    "indigeneity": {
-        "left": 85,
-        "right": 75
-    },
-    "ableism": {
-        "left": 810,
-        "right": 295
-    },
-    "gossip": {
-        "left": 39240,
-        "right": 24400
-    },
-    "tribe": {
-        "left": 44350,
-        "right": 20275
-    },
-    "respectability": {
-        "left": 5040,
-        "right": 1675
-    },
-    "askari": {
-        "left": 250,
-        "right": 155
-    },
-    "partner": {
-        "left": 323440,
-        "right": 417765
-    },
-    "antisemitism": {
-        "left": 1185,
-        "right": 4920
-    },
-    "colorblindness": {
-        "left": 1185,
-        "right": 230
-    },
-    "disability": {
-        "left": 53505,
-        "right": 39360
-    },
-    "color": {
-        "left": 424445,
-        "right": 91335
-    },
-    "afrikaner": {
-        "left": 525,
-        "right": 135
-    },
-    "mankind": {
-        "left": 14125,
-        "right": 10640
-    },
-    "nation": {
-        "left": 581070,
-        "right": 335005
-    },
-    "creole": {
-        "left": 3850,
-        "right": 770
-    },
-    "slaves": {
-        "left": 43680,
-        "right": 19165
-    },
-    "interracial": {
-        "left": 9725,
-        "right": 2880
-    },
-    "intersex": {
-        "left": 3440,
-        "right": 2225
-    },
-    "enslavement": {
-        "left": 4075,
-        "right": 1280
-    },
-    "darkness": {
-        "left": 51465,
-        "right": 25525
-    },
-    "refugee": {
-        "left": 88615,
-        "right": 36555
-    },
-    "spirit": {
-        "left": 179810,
-        "right": 116150
-    },
-    "reclamation": {
-        "left": 3055,
-        "right": 665
-    },
-    "mastery": {
-        "left": 12470,
-        "right": 2445
-    },
-    "mansplain": {
-        "left": 465,
-        "right": 305
+    "empowerment": {
+        "left": 27365,
+        "right": 13890
     }
 }

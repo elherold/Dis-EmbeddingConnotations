@@ -1,2 +1,21 @@
 # (Dis)EmbeddingConnotations
-BA project: Navigating Politically Loaded Language - Word Vector Embeddings as a Tool for Exploring Connotative Implications
+
+by Elena Herold
+**BA project:** Navigating Politically Loaded Language - Static Word Embeddings as a Tool for Exploring Connotations
+
+**Preprocessing** 
+- process the newspaper dataset into right format - Docstrings check - run test check
+- preprocessing of Macht.Sprache words - Docstring check - run test check
+
+**Word2vec** - Docstrings check - run test check
+
+**Connotative Heatmap**
+- load models - Docstrings check - run test check 
+- test seed words - Docstring check - run test check
+- Vector offset method functions - Docstrings check - run test check 
+- SVM method functions - Docstrings check - run test check
+- Calculate the connotative heatmap - Docstrings check - run test check 
+
+**Evaluation**
+- reliability_ES.py - Docstring check - run test check 
+- validity_ES.py - Docstring check - run test check 
