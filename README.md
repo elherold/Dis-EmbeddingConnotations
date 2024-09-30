@@ -17,15 +17,15 @@ Steps to run the code:
 ### Folder Structure
 Code_BA/
 ├── data/
-│   ├── data_helper
-|   |     ├── cleaned_words_machtsprache.json
-|   |     ├── inter_distances.json
-|   |     ├── macht.sprache_words.json
-|   |     ├── seeds.json
-|   |     ├── valid_seeds.json
-|   |     └── word_frequencies.json 
-|   ├── data_processed
-│   └── data_raw
+│   ├── data_helper/
+│   │   ├── cleaned_words_machtsprache.json
+│   │   ├── inter_distances.json
+│   │   ├── macht.sprache_words.json
+│   │   ├── seeds.json
+│   │   ├── valid_seeds.json
+│   │   └── word_frequencies.json
+│   ├── data_processed/
+│   └── data_raw/
 ├── models/
 │   ├── model1.pkl
 │   └── model2.pkl
