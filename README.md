@@ -26,14 +26,37 @@ Code_BA/
 │   │   ├── valid_seeds.json
 │   │   └── word_frequencies.json
 │   ├── data_processed/
-│   └── data_raw/
+|   |   ├── left MISSING
+|   |   └── right MISSING
+│   ├── data_raw/
+|   |   ├── left MISSING
+|   |   └── right MISSING
+|   └── figures/
+|       ├── heatmaps
+|       |   ├── heatmap_colorblindness_centroid.png
+|       |   ├── heatmap_colorblindness_svm.png
+|       |   ├── heatmap_nation_centroid.png
+|       |   ├── heatmap_nation_svm.png
+|       |   ├── heatmap_spinster_centroid.png
+|       |   └── heatmap_spinster_svm.png
+|       └── comp_inter_intra.png
 ├── models/
-│   ├── model1.pkl
-│   └── model2.pkl
+│   ├── SG_*_left.model  (Total of 5 training runs)
+│   └── SG_*_right.model (Total of 5 training runs) 
 ├── src/
-│   ├── utils/
-│   │   └── helper.py
-│   └── main.py
+│   ├── Connotative Heatmap/
+│   │   ├── centroid_functions.py
+│   │   ├── connotative_heatmap.py
+│   │   ├── svm_functions.py
+│   │   └── test_seedwords.py
+│   ├── Creating the ES/
+│   │   ├── processing.py
+│   │   └── word2vec_training.py
+│   ├── Evaluation/
+│   |   ├── preprocess_machtsprache_words.py
+│   |   ├── reliability_ES.py
+│   |   └── validity_ES.py
+│   └──  load_models.py
 ├── README.md
 └── requirements.txt
 ```
