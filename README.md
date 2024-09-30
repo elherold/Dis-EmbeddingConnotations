@@ -9,7 +9,7 @@ This project was implemented with Python version Python 3.12.3
 Steps to run the code: 
 
 1. To install necessary packages run:
-pip install -r requirements.txt
+`pip install -r requirements.txt`
 
 2. To load necessary datasets and trained models...
 
