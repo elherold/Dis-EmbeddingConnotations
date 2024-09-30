@@ -63,27 +63,20 @@ Code_BA/
 ```
 
 ### Description of Python Files
-**1. Folder: Connotative heatmap**
+*Note: Folders and files are ordered according to logical comprehension, not according to repository structure, for this, see "Folder Structure" above*
+**1. Folder: Creating the ES**
+  - **processing.py:**
+  - **word2vec_training.py:**
+**2. Folder: Connotative heatmap**
+  - **test_seedwords.py:** Des
   - **centroid_functions.py:** Description of what it does
   - **svm_functions.py:** Description of what it does
-  - **test_seedwords.py:** Des
   - **connotative_heatmap.py:** des
+**3. Folder: Evaluation**
+  - **preprocess_machtsprache_words.py:**
+  - **reliability_ES.py:**
+  - **validity_ES.py:**
+**Single File:**
+  - **load_models.py:**
 
 
-
-**Preprocessing** 
-- process the newspaper dataset into right format - Docstrings check - run test check
-- preprocessing of Macht.Sprache words - Docstring check - run test check
-
-**Word2vec** - Docstrings check - run test check
-
-**Connotative Heatmap**
-- load models - Docstrings check - run test check 
-- test seed words - Docstring check - run test check
-- Vector offset method functions - Docstrings check - run test check 
-- SVM method functions - Docstrings check - run test check
-- Calculate the connotative heatmap - Docstrings check - run test check 
-
-**Evaluation**
-- reliability_ES.py - Docstring check - run test check 
-- validity_ES.py - Docstring check - run test check 
