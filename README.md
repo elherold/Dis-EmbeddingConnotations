@@ -69,15 +69,18 @@ Code_BA/
 **1. Folder: Creating the ES**
   - **processing.py:**
   - **word2vec_training.py:**
+    
 **2. Folder: Connotative heatmap**
   - **test_seedwords.py:** Des
   - **centroid_functions.py:** Description of what it does
   - **svm_functions.py:** Description of what it does
   - **connotative_heatmap.py:** des
+    
 **3. Folder: Evaluation**
   - **preprocess_machtsprache_words.py:**
   - **reliability_ES.py:**
   - **validity_ES.py:**
+    
 **Single File:**
   - **load_models.py:**
 
