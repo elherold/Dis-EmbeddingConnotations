@@ -1,7 +1,8 @@
 # (Dis)EmbeddingConnotations
 
 **BA Project** *Navigating Politically Loaded Language - Static Word Embeddings as a Tool for Exploring Connotations* 
-- by Elena Herold
+
+by Elena Herold
 
 ## Technical Setup
 This project was implemented with Python version Python 3.12.3
@@ -64,6 +65,7 @@ Code_BA/
 
 ### Description of Python Files
 *Note: Folders and files are ordered according to logical comprehension, not according to repository structure, for this, see "Folder Structure" above*
+
 **1. Folder: Creating the ES**
   - **processing.py:**
   - **word2vec_training.py:**
