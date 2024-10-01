@@ -13,7 +13,7 @@ Steps to run the code:
 `pip install -r requirements.txt`
 
 2. To load missing datasets and trained models please download them using this link: https://1drv.ms/f/s!As6v1rinodqPl-MAEMUWQSc2PKcMOA?e=Ml7LnB
-The zip files need to be extracted and integrted into the existing folder structure (see below) into the folder with the same name. 
+The zip files need to be extracted and integrted into the existing folder structure (see below) into the folder with the respective name. 
 
 ## Content
 ### Objectives
