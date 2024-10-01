@@ -67,8 +67,8 @@ Code_BA/
 *Note: Folders and files are ordered according to logical comprehension, not according to repository structure, for this, see "Folder Structure" above*
 
 **1. Folder: Creating the ES**
-  - **processing.py:**
-  - **word2vec_training.py:**
+  - **processing.py:** This file is processing the left- and right-leaning datasets from data/data_raw/ in such a way that it is in the right format to be fed to the Word2Vec model during training. Specifically, it processes the contents of the respective csv files in chunks, removes any remaining URLs and groups the contents into lines of exactly 10 words each. The results are saved incrementally to avoid high memory usage. The resulting csv files are saved under data/data_processed
+  - **word2vec_training.py:** This file trains the Word2Vec models iteratively on the datasets categorized as left-leaning and right-leaning under data/data_processed. It handles large datasets by reading and processing the data in manageable chunks to avoid high memory usage. The script logs progress during Word2Vec training and saves each trained model to the specified directory under models/, naming the model files according to the training run and political leaning of the dataset. The training process is repeated five times for each leaning with the hyperparameters specified as: vector_size=30, window_size=10, min_count=15, workers=4, epochs=5, sg=1, negative=5, hs=0.
     
 **2. Folder: Connotative heatmap**
   - **test_seedwords.py:** Des
