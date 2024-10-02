@@ -8,13 +8,15 @@ def process_csv_in_chunks(file_path, parent_dir, processed_folder):
     After this, data is in the right format to train Word2Vec models.
 
     Parameters:
-                file_path (str): Path to the CSV file to process.
-                parent_dir (str): The parent directory name to use as the key in processed_data dictionary.
-                processed_folder (str): The folder where processed files will be saved.
-                chunk_size (int): Number of rows to read per chunk.
+    --------------
+    file_path (str): Path to the CSV file to process.
+    parent_dir (str): The parent directory name to use as the key in processed_data dictionary.
+    processed_folder (str): The folder where processed files will be saved.
+    chunk_size (int): Number of rows to read per chunk.
 
     Returns:
-                None
+    ------------
+    None
     """
     words = []
     output_file_path = os.path.join(processed_folder, f"{parent_dir}.csv")
@@ -49,9 +51,11 @@ def load_and_process_csv_files(root_folder):
     are saved incrementally to avoid high memory usage.
 
     Parameters:
+    -----------
     root_folder (str): The path to the root folder containing the raw CSV files.
 
     Returns:
+    -----------
     None
     """
     # Set a large but reasonable CSV field size limit
@@ -85,7 +89,9 @@ def load_and_process_csv_files(root_folder):
 
 def main():
     """
-    Main function to load and process raw CSV files, then save the processed data.
+    Main function to 
+          - load and process raw CSV files, 
+          - then save the processed data.
     """
     # Define the root folder path
     root_folder = 'data/data_raw'
