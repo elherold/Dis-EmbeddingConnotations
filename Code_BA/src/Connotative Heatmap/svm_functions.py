@@ -67,10 +67,12 @@ def distance_svm(svm_model, target_vector):
     Calculates the decision function value for the target vector using a cosine kernel SVM.
     
     Parameters:
+    ------------
     svm_model (SVC): The trained SVM model with a cosine kernel.
     target_vector (numpy.ndarray): The vector to evaluate.
 
     Returns:
+    ------------
     float: The decision function value, reflecting the cosine similarity-based distance to the decision boundary.
     """
     return svm_model.decision_function([target_vector])[0]
