@@ -14,11 +14,13 @@ def read_processed_comments(file_path, chunk_size=10000):
     Reads processed comments from a large CSV file in chunks.
 
     Parameters:
-        file_path (str): The path to the file containing the processed comments.
-        chunk_size (int): The number of lines to read at a time.
+    ------------
+    file_path (str): The path to the file containing the processed comments.
+    chunk_size (int): The number of lines to read at a time.
 
     Yields:
-        list: A list of processed comments (10 words per line).
+    -------------
+    list: A list of processed comments (10 words per line).
     """
     chunk_count = 0  # Initialize chunk counter
     try:
@@ -44,11 +46,13 @@ def load_chunks(datasets, chunk_size=10000):
     Loads all chunks from the given datasets into memory.
 
     Parameters:
-        datasets (list): List of file paths to the datasets.
-        chunk_size (int): The number of lines to read at a time.
+    ------------
+    datasets (list): List of file paths to the datasets.
+    chunk_size (int): The number of lines to read at a time.
 
     Returns:
-        list: A list of all chunks from the datasets.
+    -------------
+    list: A list of all chunks from the datasets.
     """
     all_chunks = []
     for dataset in datasets:
@@ -60,19 +64,24 @@ def train_word2vec_model_iteratively(datasets, model_folder, num_iterations, lea
     """
     Trains a Word2Vec model iteratively on the provided sentences.
 
-    Args:
-        datasets (list): List of file paths to the datasets.
-        model_folder (str): Path to the folder where models will be saved.
-        num_iterations (int): Number of iterations for training.
-        leaning (str): Label indicating the political leaning of the data.
-        vector_size (int): Dimensionality of the word vectors in the resulting Embedding Space. Defaults to 300.
-        window (int): Maximum distance between the current and predicted word within a sentence. Defaults to 10.
-        min_count (int): Ignores all words with total frequency lower than this. Defaults to 15.
-        workers (int): Number of worker threads to train the model. Defaults to 4.
-        epochs (int): Number of iterations (epochs) over the corpus. Defaults to 5.
-        sg (int): Training algorithm: 1 for skip-gram; otherwise CBOW. Defaults to 1 (skip-gram).
-        negative (int): Number of negative samples. Defaults to 5.
-        hs (int): If 1, hierarchical softmax will be used for model training. If 0, negative sampling will be used. Defaults to 0 (negative sampling).
+    Parameters:
+    -------------
+    datasets (list): List of file paths to the datasets.
+    model_folder (str): Path to the folder where models will be saved.
+    num_iterations (int): Number of iterations for training.
+    leaning (str): Label indicating the political leaning of the data.
+    vector_size (int): Dimensionality of the word vectors in the resulting Embedding Space. Defaults to 300.
+    window (int): Maximum distance between the current and predicted word within a sentence. Defaults to 10.
+    min_count (int): Ignores all words with total frequency lower than this. Defaults to 15.
+    workers (int): Number of worker threads to train the model. Defaults to 4.
+    epochs (int): Number of iterations (epochs) over the corpus. Defaults to 5.
+    sg (int): Training algorithm: 1 for skip-gram; otherwise CBOW. Defaults to 1 (skip-gram).
+    negative (int): Number of negative samples. Defaults to 5.
+    hs (int): If 1, hierarchical softmax will be used for model training. If 0, negative sampling will be used. Defaults to 0 (negative sampling).
+
+    Returns:
+    -----------
+    None
     """
     # Load all chunks from datasets into memory
     all_chunks = load_chunks(datasets)
@@ -108,9 +117,7 @@ def main():
     - Processes the comments according to their political leaning.
     - Trains a Word2Vec model iteratively on the processed comments.
     - Saves the trained model to the specified model folder.
-
-    Raises:
-        Exception: If there is an error processing any dataset or training the model.
+    
     """
     # Define the data and model folders
     leanings = ["left", "right"]
