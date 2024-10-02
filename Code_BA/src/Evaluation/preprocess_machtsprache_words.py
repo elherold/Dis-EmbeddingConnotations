@@ -20,12 +20,14 @@ def clean_macht_sprache(input_file_path, output_file_path, models):
     Only words present in both embedding spaces are included, and duplicates are removed.
 
     Parameters: 
-                input_file_path (str): the path to the input macht.sprache json file
-                output_file_path (str): the path to save the cleaned words
-                models (dict): Dictionary containing the word2vec models
+    ------------
+    input_file_path (str): the path to the input macht.sprache json file
+    output_file_path (str): the path to save the cleaned words
+    models (dict): Dictionary containing the word2vec models
 
     Returns:
-                None
+    ------------
+    None
     """
     # Load the macht.sprache json file
     try:
@@ -76,12 +78,14 @@ def calculate_and_save_inter_distances(models, target_words, output_file):
     Calculate the inter-dataset differences for all words and save them to a file.
 
     Parameters:
-                models (dict): Dictionary containing the Word2Vec models.
-                target_words (list): List of target words.
-                output_file (str): The file path to save the inter-dataset differences.
+    -------------
+    models (dict): Dictionary containing the Word2Vec models.
+    target_words (list): List of target words.
+    output_file (str): The file path to save the inter-dataset differences.
 
     Returns:
-                None
+    -------------
+    None
     """
     if not os.path.exists(output_file):
         inter_distances = []
