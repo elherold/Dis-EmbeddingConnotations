@@ -13,11 +13,12 @@ Steps to run the code:
 `pip install -r requirements.txt`
 
 2. To load missing datasets and trained models please download them using this link: https://1drv.ms/f/s!As6v1rinodqPl-MAEMUWQSc2PKcMOA?e=Ml7LnB
-The zip files need to be extracted and integrted into the existing folder structure (see below) into the folder with the respective name. 
+The zip files need to be extracted and integrated into the existing folder structure (see below) into the folder with the respective name. 
 
 ## Content
 ### Objectives
-Write short statement about what I wish to achieve with this project
+
+My goal is to investigate the question how word embeddings can be leveraged to capture connotations of politically loaded language for the users of the website Macht.Sprache. The scripts of this repository are meant to provide a possible avenue to tackle this question. Starting with the raw datasets (left- and right-leaning newspaper articles), it provides the necessary code to train the word embedding models and perform further operations on the embedding spaces. Furthermore, it includes files for reliability and validity checks of the proposed method. The end-result are heatmaps, in which the connotative scores for the different dimensions of interest are displayed on a color scale from blue to red for both the left-leaning and right-leaning dataset. 
 ### Folder Structure
 ```
 Code_BA/
